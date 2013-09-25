@@ -1,0 +1,25 @@
+Part the First: Things you need to know.
+
+All projects hosted on GitHub must be licensed under an open source license.
+
+I have elected to use the MIT License (http://opensource.org/licenses/MIT).
+
+All work contributed to this project will be made available under the terms of this license.
+
+All differently licensed external components must be compatible with this license.
+
+External components should never be uploaded to SF (regardless of license), because they may be subject to cryptographic export restrictions.
+
+All code submitted should not link against the secure functions of any external component (no encryption, decryption, hashing, etc.)
+
+
+Part the Second: Things you need to obtain.
+
+Orwell Dev-C++, MinGW32 portable version (http://sourceforge.net/projects/orwelldevcpp/files/Portable%20Releases/Dev-Cpp%205.4.2%20MinGW%204.7.2%20Portable.7z/download). This is a combination editor/compiler/linker for C++ and ANSI C. It is highly preferable that all contributors use this in lieu of Visual Studio 20XX, Notepad++, GCC, Eclipse, Borland, etc., because the entire compiler suite can be submitted as part of the final project, avoiding any compatibility issues, and because it can be run from flash drives on school computers with no compiler installed.
+
+A detailed guide to threading in Windows: http://www.codeproject.com/Articles/14746/Multithreading-Tutorial
+
+An introduction to TCP/IP with WINSOCK: http://msdn.microsoft.com/en-us/library/windows/desktop/ms738545%28v=vs.85%29.aspx
+
+Complete information on WINSOCK: http://msdn.microsoft.com/en-us/library/windows/desktop/ms741416%28v=vs.85%29.aspx
+
