@@ -1,0 +1,20 @@
+Individual Branches: 
+* Named after the collaborator that created the branch. 
+* Should be a branch of the master branch.
+* Used to hold all of an individuals work.
+
+Vn Branches:
+* Indicate a version.
+* Used to indicate the current state of the project
+* When ready for an inclusion in a test release, changes from individuals branches are merged into the current Vn branch.
+* A change in version number indicates that a major milestone has been reached and any changes should be merged into a new branch.
+
+gh-pages Branch: 
+* Holds the static content for the project WWW site. 
+* see here: http://pdp-eleven.github.io/cs3602013
+
+##REMINDER##:
+* Everything you post to any branches on GitHub is visible to the public, so avoid posting passwords, phone numbers, addresses, real names, etc.
+
+
+
