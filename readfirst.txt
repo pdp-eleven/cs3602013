@@ -1,0 +1,16 @@
+All projects hosted on GitHub must be licensed under an open source license.
+
+I have elected to use the MIT License (http://opensource.org/licenses/MIT).
+
+All work contributed to this project will be made available under the terms of this license.
+
+All differently licensed external components must be compatible with this license.
+
+
+Prior to contributing code, documentation or other materials to the project please read the license.
+
+If anyone is not satisfied with the terms of the license, please let the other team members know, so that we can reach a resolution on the issue.
+
+Thanks in Advance.
+
+
