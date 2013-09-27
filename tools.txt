@@ -1,2 +1,6 @@
-Diagram Tools:
+Diagram Tool:
 http://portableapps.com/apps/office/dia_portable
+
+C++/ANSI C Compiler:
+http://sourceforge.net/projects/orwelldevcpp/files/Portable%20Releases/Dev-Cpp%205.4.2%20MinGW%204.7.2%20Portable.7z/download
+
