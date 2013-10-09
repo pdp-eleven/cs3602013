@@ -1,0 +1,11 @@
+Neil Malik
+CS 360 
+Example Use Case
+
+	In this use case the actor (the master host machine/its user) will request data from one or more of the other hosts within the communication protocol. 
+	This could include acquiring different files or data from different hosts, or checking all hosts for specific files or data. It will send out a request which contains what data is meant to be acquired and optionally a location (web or local address) if there is a specific directory or location that is meant to be checked. 
+	For example a "shared" directory which could serve as a storage hub for the remote connection. If the requested data is found it is sent back to the master host machine for processing along with the id of the computer that found the data and the master will use the acquired data as appropriate.
+	At this time, if there were multiple hosts being checked for the same data, the originating host would send a message verifying that the data has been acquired and the other hosts in the process of searching will terminate.
+	
+	Alternatively, this process could be used to obtain multiple parts of a program or command to be executed, which has been spread out among the machines of the remote connection for an arbitrary level of extra protection. 
+	Another use could be to send the data check command to all other hosts, and then executing a command on all machines having the necessary data, potentially distributing the necessary data to all machines missing the data before execution.
