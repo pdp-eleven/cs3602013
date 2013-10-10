@@ -1,0 +1,103 @@
+Online Routine Control and Automation Project - Hello World Scenario - hello-world-scenario.txt
+
+Peter Blencowe, V1
+
+
+Introduction:
+
+This is a semi-technical explanation of the major events that take place during a routine's life inside ORCA. I have omitted as much code as possible, but have made an effort to insert real C++ code when needed, rather than pseudo code. 
+
+
+
+1. Hardware Configuration
+
+In this scenario the following are available to the ORCA operator: Three IA32 computers (ALPHA, BETA and GAMMA) running MS Windows, all connected to a 1Gbps TPE full-duplex switch. By some means, the network driver of each host has been set to a unique value inside a compatible range (n.n.n.1, n.n.n.2, n.n.n.3).
+
+
+2. Software Configuration
+
+On all available computers, the following operations have been performed: The binary "orca.exe" has been copied to an arbitrary location within the local file system, the permissions on the file and any containing directories have been set such that the file can be executed when logged in with the operator's account. This location has been added to the search path of the shell used by the operator. 
+
+
+3. Creating a Routine
+
+The file "helloworld_r.dll" is compiled from the files "helloworld_r.h"  and "helloworld_r.cpp", and contains an example routine which returns the UUID of the host on which it is executed concatenated with the contents of the file "helloworld_r.txt". 
+
+The contents of "helloworld_r.txt" (terminated by a newline): 
+
+Hello World
+
+The contents of the header file for "helloworld_r.h": 
+
+int INIT(void* dataIn);
+...
+
+
+4. Creating a Handler
+
+The file "helloworld_h.dll" is compiled from the files "helloworld_h.h" and hellow_world_h.cpp", and contains an example means of handling the returns from instances of "helloworld_r.dll".
+
+The contents of "helloworld_h.dll":
+
+HANDLE INIT(IPv4Address dataIn);
+...
+
+
+5.1 Configuring Hosts to Execute Routines
+
+In this scenario BETA and GAMMA will become "responding hosts," meaning that their role in the system is to execute any routines sent to them, and to return the results to the routine's point of origin. In order to assign GAMMA and BETA their roles, "orca.exe" is invoked from a command line shell on each host using the following options:
+
+"orca.exe --respond --background --no-conformance-check --encryption-on --aes-key .\orca.key"
+
+
+5.2 A Brief Explanation of the Invocation Options - Responding
+
+--respond - ORCA was started in responder mode, it will run indefinitely and accept routines from other hosts on the network.
+
+--background - This instance won't attach to the terminal, the user can log out without terminating the process. 
+
+--no-conformance-check - Routines sent by other hosts will not be checked for conformance with the built in toolkit.
+
+--encryption-on - Any data sent to this instance is assumed to be in encrypted form.
+
+--aes-key - The path to the file in which the AES key used for encryption/decryption is stored.
+
+
+6.1 Discovering Responding Hosts
+
+ALPHA will act as the "originating host," sending user routines out to available responding hosts for processing and handling any returns from them. In order to discover which other hosts on the same network are willing to execute routines, "orca.exe" is invoked from a command line shell in the following way:
+
+"orca.exe --discover --udp"
+
+
+6.2 A Brief Explanation of the Invocation Options - Discovery
+
+--discover - Sends a broadcast message to all hosts on the network, and listens for replies. The broadcast message contains the IP address of the host it originated on and any responses will contain a description of the options with which the remote instance was instantiated. All responses will be saved in a file in the user's home directory, unless overridden using the option "--config-file", which accpets a file system path as an argument and uses the indicated file as the configuration file.
+
+--udp - When broadcasting, use UDP messages sent to the network broadcast address. Not all networks support UDP broadcasting, so you may need to use the --tcp option instead, which will iteratively send messages to all IP addresses that are part of the current network (typically much slower).
+
+
+7.1 Sending a Routine Out For Remote Execution
+
+Once a file of responding hosts on the same network has been created, a routine can be sent out in the following way:
+
+"orca.exe --send-name GAMMA --send-name BETA --routine .\helloworld_r.dll --data .\helloworld_r.txt --handler .\helloworld_h.dll --file-out .\results.txt"
+
+
+7.2 A Brief Explanation of the Invocation Options - Sending
+
+--send-name - This invocation will send a routine to the named host. See also --send-uuid and --send-address.
+
+--routine - A file system path to the routine file that will be sent to the remote host for execution.
+
+--data - A file system path to a data file that will be sent to the remote host along with the routine.
+
+--handler - A file system path to a file the contents of which will be executed upon succesful sending a routine to a remote host. 
+
+--file-out - A file system path to which the aggregated handler output will be writen.
+
+
+8. Getting Results Back from A Responding Host
+
+As soon as sending of the routine has been completed for a single remote host, a new thread is spawned which will bind to a port and wait for data, which will be passed to the handler specified on the command line. Once data is received and processed, the handler will write it to a temporary file and return a handle to it. After all handlers have died, the primary thread will merge the contents of the temporary files to the file specified on the command line.  
+
