@@ -1,0 +1,31 @@
+ORCA: Online Routine Control & Automation - Management Planning - Deliverable Materials
+
+Guido, Malik, Blencowe, Schoonmaker
+
+
+In any text file housed under project_doc, the following conventions shall be used:
+
+Paragraphs shall end in two line breaks, no line breaks are to occur within the body of the paragraph. This convention allows the text to be wrapped to an arbitrary width on an as-needed basis.
+
+The first line of a text file shall always contain the project name and document description.
+
+The second life of a text file shall always be blank.
+
+The third line of a text file shall contain the names of the author(s).
+
+The fourth and fifth lines of a text file shall always be blank.
+
+
+
+Helpful notes on working with plain text:
+
+Text will use different linebreak characters depending on which program/OS combination generated it.
+
+If you have the option to choose when saving, a single ASCII linefeed (newline) character works well across most systems.
+
+The LF ending is supported by: OSX, Nano (/usr/bin/nano); OSX, TextEdit; Windows, MS Word (winword.exe); Windows, Wordpad (write.exe); Linux, system-wide.
+
+On Windows, Notepad (notepad.exe) does NOT support the single LF endings, despite the fact that it is often the default text editor.
+
+
+ 
