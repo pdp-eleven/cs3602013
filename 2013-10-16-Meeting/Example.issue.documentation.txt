@@ -1,0 +1,17 @@
+Description of the file/isses that occured 
+
+Status:
+OPEN/CLOSED
+
+Opened By:
+[Your Name Here]
+
+Closed By:
+[Name of who solved it]
+
+Depends:
+[Write problem here](example below)
+[Problem];[Where it was solved]
+
+Write Problem Statement; problem_statement.txt
+Finalize Problem Statement; finalize_problem_statement.txt 
