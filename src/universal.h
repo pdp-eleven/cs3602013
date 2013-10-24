@@ -1,43 +1,35 @@
 //The Universal Toolkit namespace holds all functions and structs that will later be used to build classes.
 
-
-
 namespace utk{
 
+  //typedef Types
+  
+  typedef unsigned long netcode;
+  
+  
+  //Constants
+  const netcode SUCCESS_NOS = 0;
+  const netcode FAILURE_NOS = 1;
+  
+ 
 
   //General Structures:
 
-
   struct MemBoundry{
-  
+
     void* highestBlock;
-
     void* lowestBlock;
-
     size_t blockSize;
 
   };
 
 
-
   template<typename dataType> struct AutotypedBoundry {
 
     dataType* highestBlock;
-
     dataType* lowestBlock;
-    
+   
   }
-
-
-  struct InvocationOptions{
-
-
-    
-
-
-  }
-
-
 
 
 

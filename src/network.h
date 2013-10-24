@@ -32,25 +32,25 @@ private:
 public: 
   
   //Set the target to a file, nullifies all existing targets
-  void settarget(HANDLE dataIn);
+  utk::netcode settarget(HANDLE dataIn);
 
   //Set the target to a location in memory, nullifies all existing targets
-  void settarget(utk::mem_boundry dataIn);
+  utk::netcode settarget(utk::mem_boundry dataIn);
 
   //Specify only the protocol and the port. Sets both addressRangeStart and addressRangeEnd to the network broadcast address for UDP. Calculates addressRangeEnd and addressRangeStart using the current network mask.
-  void setdestination(utk::transportProtocol protocol, unsigned int port);
+  utk::netcode setdestination(utk::transportProtocol protocol, unsigned int port);
 
   //Specify the protocol, an address and the destination port, addressRangeEnd is implicitly set to addressRangeStart.
-  void setdestination(utk::transportProtocol protocol, utk::IPvAddress address, unsigned int port );
+  utk::netcode setdestination(utk::transportProtocol protocol, utk::IPvAddress address, unsigned int port );
   
   //Specify the protocol, the start and end of an addresses and the destination port.
-  void setdestination(utk::transportProtocol protocol, utk::IPvAddress startAddress, utk::IPvAddress endAddress, unsigned int port);
+  utk::netcode setdestination(utk::transportProtocol protocol, utk::IPvAddress startAddress, utk::IPvAddress endAddress, unsigned int port);
 
   //Sets the number times a transmission should be sent to any address
-  void setretransmits(unsigned int count);
+  utk::netcode setretransmits(unsigned int count);
 
   //Sets the period of time to wait between resends, no effect if autoRetransmits is zero.
-  void retransmitinterval(unsigned int seconds);
+  utk::netcode retransmitinterval(unsigned int seconds);
 
   //transmits the target using the current configuration.
   utk::netcode transmit();
@@ -67,8 +67,24 @@ public:
 class Receiver{
 
 private:
+
+  //Memory values to transmit.
+  utk::mem_boundry target;
   
+  //Win32 handle to a file containing values to transmit. 
+  HANDLE targetf; 
+
 
 public:
 
+  //Set the target to a file, nullifies all existing targets
+  void settarget(HANDLE dataIn);
+
+  //Set the target to a location in memory, nullifies all existing targets
+  void settarget(utk::mem_boundry dataIn);
+  
+  void setorigin()
+
+
+  
 }
