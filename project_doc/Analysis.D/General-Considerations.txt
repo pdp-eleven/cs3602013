@@ -1,4 +1,4 @@
-BOOLEAN:
+A Boolean:
 	-A, --send-all
 	-B, --background
 	-D, --discover
@@ -11,17 +11,17 @@ BOOLEAN:
 	-T, --data-sha256
 	-X, --source-sha256
 
-BYTES:
+Bytes:
 	-s, --scratch-size BYTES
 
-COMPILERNAME:
+The Compiler Name:
 	-F, --force-compiler COMPILERNAME
 
-COUNT:
+Count:
 	-C, --cache COUNT
 	-r, --broadcast-repeats COUNT
 
-FILE:
+A File:
 	-c, --configuration-file FILE
 	-d, --data-file FILE
 	-f, --file-out FILE
@@ -30,17 +30,17 @@ FILE:
 	-L, --routine-library FILE
 	-S, --routine-source FILE
 
-HOSTNAME:
+A HOST NAME:
 	-N, --send-by-name HOSTNAME
 
-IPV4ADDRESS:
+A IPv4 Address:
 	-b, --broadcast-address IPV4ADDRESS
 	-I, --send-by-ip IPV4ADDRESS
 
-OPTIONSTRING:
+Compiler Options:
 	-o, --force-compiler-options OPTIONSTRING
 
-SECONDS:
+Amount of Seconds Used:
 	-p, --broadcast-pause SECONDS
 	-R, --broadcast-return-window SECONDS
 	-w, --data-return-window SECONDS
