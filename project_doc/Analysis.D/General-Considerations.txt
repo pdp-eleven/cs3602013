@@ -30,7 +30,7 @@ A File:
 	-L, --routine-library FILE
 	-S, --routine-source FILE
 
-A HOST NAME:
+A Host Name:
 	-N, --send-by-name HOSTNAME
 
 A IPv4 Address:
@@ -40,11 +40,11 @@ A IPv4 Address:
 Compiler Options:
 	-o, --force-compiler-options OPTIONSTRING
 
-Amount of Seconds Used:
+Number of Seconds Used:
 	-p, --broadcast-pause SECONDS
 	-R, --broadcast-return-window SECONDS
 	-w, --data-return-window SECONDS
 	-W, --data-send-window SECONDS
 
-UUID:
+Universally Unique Identifier of a Remote Host:
 	-U, --send-by-uuid UUID
