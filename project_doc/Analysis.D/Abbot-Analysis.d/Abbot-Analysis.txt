@@ -1,0 +1,10 @@
+Keywords and phrases:
+Originating Host
+Responding Host
+Routine File
+Invocation option
+Invocation option argument
+Configuration File
+String
+Seconds
+Universally Unique Identifier
