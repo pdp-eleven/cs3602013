@@ -1,0 +1,31 @@
+-k, --aes-key FILE
+-B, --background
+-b, --broadcast-address IPV4ADDRESS
+-i, --broadcast-iterative
+-r, --broadcast-repeats COUNT
+-p, --broadcast-pause SECONDS
+-R, --broadcast-return-window SECONDS
+-C, --cache COUNT
+-c, --configuration-file FILE
+-d, --data-file FILE
+-T, --data-sha256
+-w, --data-return-window SECONDS
+-W, --data-send-window SECONDS
+-D, --discover
+-e, --encryption
+-f, --file-out FILE
+-H, --handler FILE
+-l, --lax-conformance-check
+-r, --respond
+-L, --routine-library FILE
+-S, --routine-source FILE
+-s, --scratch-size BYTES
+-I, --send-by-ip IPV4ADDRESS
+-N, --send-by-name HOSTNAME
+-U, --send-by-uuid UUID
+-A, --send-all
+-h, --library-sha256
+-X, --source-sha256
+-O, --strict-conformance-check
+-F, --force-compiler COMPILERNAME
+-o, --force-compiler-options OPTIONSTRING
