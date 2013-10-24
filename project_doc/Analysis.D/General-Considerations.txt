@@ -1,31 +1,50 @@
--k, --aes-key FILE
+BOOLEAN:
+-A, --send-all
 -B, --background
--b, --broadcast-address IPV4ADDRESS
--i, --broadcast-iterative
--r, --broadcast-repeats COUNT
--p, --broadcast-pause SECONDS
--R, --broadcast-return-window SECONDS
--C, --cache COUNT
--c, --configuration-file FILE
--d, --data-file FILE
--T, --data-sha256
--w, --data-return-window SECONDS
--W, --data-send-window SECONDS
 -D, --discover
 -e, --encryption
+-h, --library-sha256
+-i, --broadcast-iterative
+-l, --lax-conformance-check
+-O, --strict-conformance-check
+-r, --respond
+-T, --data-sha256
+-X, --source-sha256
+
+BYTES:
+-s, --scratch-size BYTES
+
+COMPILERNAME:
+-F, --force-compiler COMPILERNAME
+
+COUNT:
+-C, --cache COUNT
+-r, --broadcast-repeats COUNT
+
+FILE:
+-c, --configuration-file FILE
+-d, --data-file FILE
 -f, --file-out FILE
 -H, --handler FILE
--l, --lax-conformance-check
--r, --respond
+-k, --aes-key FILE
 -L, --routine-library FILE
 -S, --routine-source FILE
--s, --scratch-size BYTES
--I, --send-by-ip IPV4ADDRESS
+
+HOSTNAME:
 -N, --send-by-name HOSTNAME
--U, --send-by-uuid UUID
--A, --send-all
--h, --library-sha256
--X, --source-sha256
--O, --strict-conformance-check
--F, --force-compiler COMPILERNAME
+
+IPV4ADDRESS:
+-b, --broadcast-address IPV4ADDRESS
+-I, --send-by-ip IPV4ADDRESS
+
+OPTIONSTRING:
 -o, --force-compiler-options OPTIONSTRING
+
+SECONDS:
+-p, --broadcast-pause SECONDS
+-R, --broadcast-return-window SECONDS
+-w, --data-return-window SECONDS
+-W, --data-send-window SECONDS
+
+UUID:
+-U, --send-by-uuid UUID
