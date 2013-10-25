@@ -1,4 +1,9 @@
+//ORCA: Online Routine Control & Automation - universal.h
+
+//Peter Blencowe
+
 //The Universal Toolkit namespace holds all functions and structs that will later be used to build classes.
+
 
 namespace utk{
 
@@ -9,6 +14,7 @@ namespace utk{
   typedef int** memaxcode;
   typedef int** fileaxcode;
   typedef int** optioncode;
+  typedef int fastcompcode;
   
   typedef typename char* filepath;
   typedef typename char* hostname;
@@ -21,6 +27,10 @@ namespace utk{
   
 
   //Constants:
+
+
+  //fastcomp() related constants
+  const fastcompcode 
 
   //Byte stream header delineation and sizing
   const char DATA_LENGTH_FIELD = 0;
@@ -79,7 +89,7 @@ namespace utk{
 
 
 
-  //Return codes for dependency
+  //Return codes for dependency resolution
   const depcode SUCCESS_NOS = {0, "Success, Not Otherwhise Specified"};
   const depcode FAILURE_NOS = {1, "Failure, Not Otherwhise Specified"};
   
@@ -140,8 +150,13 @@ namespace utk{
     
     //Indicates the presence of an option and its argument, if applicable.
     class  invocationOption<typename argtype>{
+
+      invocationOption();
+
       bool active();
+
       argtype argument();
+      
     };
 
     //All avilable options
@@ -182,6 +197,7 @@ namespace utk{
   //Runtime Environment Functions
   depcode resolve_dependency(optioncode codeIn);
 
+  
   
   
 
