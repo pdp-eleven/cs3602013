@@ -1,0 +1,7 @@
+ORCA: Online Routine Control & Automation - Analysis, User Interaction
+
+Guido, Malik, Blencowe, Schoonmaker
+
+All user interactions are handled through the command line interpreter in use on the installation target or through the GUI module. The GUI module is a direct analog of the capabilities of a reference command line interpreter.
+
+At any point following execution, ORCA may exit due to an error. Any error due to an exit will cause main() to return a non-zero integer to the operating system on the installation target, and an error message to be sent to STDOUT on the local installation target using printf().

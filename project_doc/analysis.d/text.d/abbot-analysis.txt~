@@ -1,0 +1,37 @@
+ORCA: Online Routine Control & Automation - Analysis, Abbot
+
+Guido, Malik, Blencowe, Schoonmaker
+
+
+
+The following keywords and phrases are considered relevent to the operation of ORCA in the following ways:
+
+
+Built-in Primitives:
+
+File Path - Taken from a null terminated string of an arbitrary length, resolves to a pointer returned by an Windows API function.
+
+Host Name - Taken from a null terminated string of arbitrary length, remains as such for the lifetime of the program.
+
+IPv4 Address - Taken from a null terminated string with an upper and lower bounded length, resolves to four eight bit numbers.
+
+Arbitrary String - Taken from a null terminated string of arbitrary length, remains as such for the lifetime of the program.
+
+Countable - Taken from a null terminated string with an upper and lower bounded length, resolves to an integer of the word length of the installation target.
+
+Compiler Names - Taken from a null terminated string of arbitrary length, resolved to a constant. 
+
+UUID - Taken from a null terminated string of fixed length, remains as such for the lifetime of a program.
+
+
+Complex Types:
+
+Command Line - Synthesized from argv[] and argc[], resolves to an instance of the class utk::CommandLine.
+
+Invocation Option - resolves to the structure utk::InvocationOption, which nests within the class utk::CommandLine.
+
+
+Attributes:
+
+Option Modality - Synthesized from argv[] and argc[], is an attribute of utk::InvocationOption.
+

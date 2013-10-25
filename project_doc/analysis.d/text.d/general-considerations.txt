@@ -1,0 +1,97 @@
+ORCA: Online Routine Control & Automation - Analysis, General Considerations
+
+Guido, Malik, Blencowe, Schoonmaker
+
+
+
+Options specified at invocation time can be classified by the argument type they accept:
+
+Strictly Modal Options: These options accept no arguments.
+
+-A, --send-all
+
+-B, --background
+
+-D, --discover
+
+-O, --strict-conformance-check
+
+-T, --data-sha256
+
+-X, --source-sha256
+
+-e, --encryption
+
+-h, --library-sha256
+
+-i, --broadcast-iterative
+
+-l, --lax-conformance-check
+
+-r, --respond
+
+
+Countable Arguments: These options accept a string integer representing a count of an arbitrary set of entities.
+
+-s, --scratch-size BYTES
+
+-C, --cache COUNT
+
+-r, --broadcast-repeats COUNT
+
+-R, --broadcast-return-window SECONDS
+
+-W, --data-send-window SECONDS
+
+-p, --broadcast-pause SECONDS
+
+-w, --data-return-window SECONDS
+
+
+Compiler Names: These options accept a string matching one of the compile time remote compiler signature strings.
+
+-F, --force-compiler COMPILERNAME
+
+
+File Path: These options accept a string representing a an unique entity with at least one data stream in the local file system.
+
+-H, --handler FILE
+
+-L, --routine-library FILE
+
+-S, --routine-source FILE
+
+-c, --configuration-file FILE
+
+-d, --data-file FILE
+
+-f, --file-out FILE
+
+-k, --aes-key FILE
+
+
+Host Names: These options accept a single
+
+-N, --send-by-name HOSTNAME
+
+
+Internet Protocal Version 4 Addresses: A string representing an IPv4 address in dotted-quad notation ( [1-9]([0-9])([0-9]).[1-9]([0-9])([0-9]).[1-9]([0-9])([0-9]).[1-9]([0-9])([0-9]) ).
+
+-I, --send-by-ip IPV4ADDRESS
+
+-b, --broadcast-address IPV4ADDRESS
+
+
+Arbitrary Strings: These options accept an arbitrary string that will be interpreted by another program. 
+
+-o, --force-compiler-options OPTIONSTRING
+
+
+ORCA Host Universally Unique Identifier: These options accept a UUID string in the format used for internal identification of ORCA hosts on a local network.
+
+-U, --send-by-uuid UUID
+
+
+All options are identified program wide by signature constants defined in universal.h.
+
+The class utk::CommandLine contains abstractions of all known options and their arguments. 
