@@ -1,0 +1,16 @@
+ORCA: Online Routine Control & Automation - Design Goals
+
+Guido, Malik, Blencowe, Schoonmaker
+
+
+The foremost goals of our system design are input agnosticity and statelessness. Barring hardware or operating system malfunctions, the system should always undergo a controlled exit and enter an environment in which it is restartable.
+
+In order to accomplish these goals, the following measures will be taken: 
+
+* The system will always have a finite number of execution paths.
+
+* If at any time an external function call is made which may block execution indefinately, it is to be called from a seperate thread of execution which may be destroyed if it has existed for an unacceptable ammount of time. 
+
+* If at any time an action may be taken iteratively, there is always to be a defined maximum number of iterations. 
+
+* Whenever a decision is made, the available branches are always to consist of an exit branch, a repeat branch and a continue branch. 
