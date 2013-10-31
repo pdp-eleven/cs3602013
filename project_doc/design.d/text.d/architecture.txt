@@ -1,0 +1,35 @@
+ORCA: Online Routine Control & Automation - Architecture
+
+Guido, Malik, Blencowe, Schoonmaker
+
+
+The most general architecture of the system will be layer based. 
+
+Layer 0, Operating System APIs:
+
+This layer consists entirely of datatypes and functions which are defined in libraries that are distributed with the installation target operating system (Microsoft Windows 7). 
+
+* Layer 0 may contain mutable instance data, but its behavior is considered to be considered to be beyond the scope of the program, except where explicitly defined. 
+
+* Layer 0 may span multiple files and namespaces.
+
+
+Layer 1, The Universl Toolkit: 
+
+The Universal Toolkit consists of functions and datatypes which are definedin the utk:: namespace. These datatypes and functions are generally considered to be  applicable and useful at all stages of execution. 
+
+* Layer 1 contains no mutable instance data of any kind. 
+
+* Layer 1 is responsible for presenting any mutable data instances that exist in layer 0 as being nonmutable in nature, including recording their state and returning them to a recorded state. 
+
+* Layer 1 may span multiple files. 
+
+
+Layer 2, Megaclasses: 
+
+Megaclasses 
+
+
+
+
+

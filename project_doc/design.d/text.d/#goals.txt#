@@ -1,0 +1,36 @@
+ORCA: Online Routine Control & Automation - Design Goals
+
+Guido, Malik, Blencowe, Schoonmaker
+
+
+The foremost goals of our system are design are input agnosticity, statelessness and modularity. Barring hardware or operating system malfunctions, the system should always undergo a controlled exit and enter an environment in which it is restartable. The internal layout of the source code should be as modular at possible to facilitate collaberation between multiple programmers.
+
+In order to accomplish these goals, the following measures will be taken: 
+
+* The system will always have a finite number of execution paths.
+
+* If at any time an external function call is made which may block execution indefinitely, it is to be called from a separate thread of execution which may be destroyed if it has existed for an unacceptable amount of time. 
+
+* If at any time an action may be taken iteratively, there is always to be a defined maximum number of iterations. 
+
+* Whenever a decision is made, the available branches are always to consist of an exit branch, a repeat branch and a continue branch. 
+
+* Alterations to the permanent storage associated with the execution environment are to be avoided if at all possible, and are to be reversible.
+
+* Returning to a restart capable environment should depend as little as possible explicit reversal of previous alterations made to any associated permanent storage.
+
+* To facilitate modular design, use of mutable data members should be limited as much as is practical. 
+
+
+Following this are certain goals that are considered desirable, but are not intrinsic to the basic design of the system.
+
+* The system is to be optionally secure against observation and intrusion. This is accomplished via time stamping and encryption of transmissions. 
+
+* To promote usability all ivocation options are to have a long, menominc form which is meaningful with out being overlong.
+
+* The system should be distributable in the form of a single binary file in the Windows executable format.
+
+
+
+
+
