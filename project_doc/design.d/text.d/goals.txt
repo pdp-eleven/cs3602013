@@ -15,9 +15,9 @@ In order to accomplish these goals, the following measures will be taken:
 
 * Whenever a decision is made, the available branches are always to consist of an exit branch, a repeat branch and a continue branch. 
 
-* Alterations to the permanent storage associated with the execution environment are to be avoided if at all possible, and are to be reversible.
+* Alterations to the permanent storage associated with the execution environment are to be avoided if at all possible, and are to be reversible if implemented.
 
-* Returning to a restart capable environment should depend as little as possible explicit reversal of previous alterations made to any associated permanent storage.
+* Returning to a restart capable environment should depend as little as possible on explicit reversal of previous alterations made to any associated permanent storage.
 
 * To facilitate modular design, use of mutable data members should be limited as much as is practical. 
 
@@ -26,7 +26,7 @@ Following this are certain goals that are considered desirable, but are not intr
 
 * The system is to be optionally secure against observation and intrusion. This is accomplished via time stamping and encryption of transmissions. 
 
-* To promote usability all ivocation options are to have a long, menominc form which is meaningful with out being overlong.
+* To promote usability all ivocation options are to have both a long, menominc form which is meaningful with out being overlong and a short form, alphabetic form.
 
 * The system should be distributable in the form of a single binary file in the Windows executable format.
 

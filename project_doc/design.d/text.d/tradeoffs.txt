@@ -3,7 +3,7 @@ ORCA: Online Routine Control & Automation - Design Tradeoffs
 Guido, Malik, Blencowe, Schoonmaker
 
 
-In order to facilitate modularity, some of the advantages of automatic memory managemnet may be sacrificed in some instances.
+In order to facilitate modularity, some of the advantages of automatic memory management may be sacrificed in some instances.
 
 In order to facilitate statelessness, user interaction is not supported.
 

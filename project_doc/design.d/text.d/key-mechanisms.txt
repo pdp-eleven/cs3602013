@@ -1,0 +1,10 @@
+ORCA: Online Routine Control & Automation - Design Goals
+
+Guido, Malik, Blencowe, Schoonmaker
+
+
+Boundry Conditions: 
+
+* Program invocation; Read the commandline, choose an execution path. 
+
+* When CTRL_CLOSE_EVENT signal is caught, perform a clean exit immediately.

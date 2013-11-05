@@ -11,25 +11,52 @@ This layer consists entirely of datatypes and functions which are defined in lib
 
 * Layer 0 may contain mutable instance data, but its behavior is considered to be considered to be beyond the scope of the program, except where explicitly defined. 
 
-* Layer 0 may span multiple files and namespaces.
+* Layer 0 may span multiple files and namespaces, included libraries must be defined in the file includes.h.
 
 
 Layer 1, The Universl Toolkit: 
 
-The Universal Toolkit consists of functions and datatypes which are definedin the utk:: namespace. These datatypes and functions are generally considered to be  applicable and useful at all stages of execution. 
+The Universal Toolkit consists of functions, datatypes and constants which are defined in the utk:: namespace. These datatypes and functions are generally considered to be  applicable and useful at all stages of execution. 
 
 * Layer 1 contains no mutable instance data of any kind. 
 
-* Layer 1 is responsible for presenting any mutable data instances that exist in layer 0 as being nonmutable in nature, including recording their state and returning them to a recorded state. 
+* Layer 1 is responsible for presenting any mutable data instances that exist in layer 0 as being immutable in nature, including recording their state and returning them to a recorded state. 
 
-* Layer 1 may span multiple files. 
+* Layer 1 may span multiple files, but all definitions must take place in the file universal.h. 
 
 
 Layer 2, Megaclasses: 
 
-Megaclasses 
+The Megaclass layer consists of classes composed mostly or wholly of type instances, functions and constants defined in the UTK. A Megaclass is generally an encapsulation of all possible resources (memory allocations, IO handles, functions calls, etc.) needed to perform a longer, more complex procedure that is specific to an abstract task.
+
+* Layer 2 does not define any public constants.
+
+* Layer 2 does not define any first class functions or subroutines.
+
+* Layer 2 classes that allocate memory must implement hand off style garbage collection in their destructors. Any remaining memory that was allocated during the object lifetime and was not handed off through a return, and any memory that was accepted through an argument must be explicitly deallocated. 
 
 
 
+Layer 3, Default Execution Path:
 
+The default execution path is comprised of the program main function, and functions covering all the major modes of functionality the compiled executable provides.
+
+* Layer 3 should not contain any support functions, unless they are considered too specific for inclusion in the UTK. 
+
+* Layer 3 is responsible for initial configuration of the initial environment, decoding the command line constants, importing environment variables, and choosing a major mode to switch to.
+
+* All layer 3 definitions take place in the file orca.h.
+
+
+Layer 4, The Graphical User Interface:
+
+The GUI acts as a custom operating system shell which allows the user to configure the behaviorr of the compiled executable file. 
+
+* Layer 4 shares no code with layers 1-3. 
+
+* Layer 4 compiles to a seperate executable.
+
+* Layer 4 communicates with the primary executable only through text, files and environment variables.
+
+* All layer 4 source code is contained under the directory gui.d
 
