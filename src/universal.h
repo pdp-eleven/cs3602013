@@ -8,26 +8,21 @@
 namespace utk{
 
   //typedef Types:
-  
-  typedef int** depcode;
-  typedef int** netcode;
-  typedef int** memaxcode;
-  typedef int** fileaxcode;
-  typedef int** optioncode;
-  typedef int fastcompcode;
+  typedef char** depcode;  
+  typedef char** netcode;
+  typedef char** memaxcode;
+  typedef cahr** fileaxcode;
+  typedef char** optioncode;
+  typedef char** fastcompcode;
   
   typedef typename char* filepath;
   typedef typename char* hostname;
   typedef typename char* ipv4address;
-  typedef typename unsign int countable;
+  typedef typename unsigned int countable;
   typedef typename char* compilername;
   typedef typename char* uuid;
-  
-  
-  
 
-  //Constants:
-
+  
 
   //fastcomp() related constants
   const fastcompcode 
@@ -39,9 +34,8 @@ namespace utk{
   const char BYTESTREAM_HEAD_LENGTH = 12;
 
 
-
   //Long and short invocation option signatures, static addresses also function as a program wide identifier. 
-  const optioncode AES_KEY[] = {"-k", "--aes-key"};
+  const optioncode AES_KEY = {"-k", "--aes-key"};
   const optioncode BACKGROUND = {"-B, --background"};
   const optioncode BROADCAST_ADDRESS = {"-b", "--broadcast-address"};
   const optioncode BROADCAST_ITERATIVE = {"-i", "--broadcast-iterative"};
@@ -76,42 +70,34 @@ namespace utk{
   //Access codes for option signatures
   const char SHORT_SIGNATURE = 0;
   const char LONG_SIGNATURE= 1;
-
-
-  
+    
   //Return codes for network functions
-  const netcode SUCCESS_NOS = {0, "Success, Not Otherwhise Specified"};
-  const netcode FAILURE_NOS = {1,  "Failure, Not Otherwhise Specified"};
+  const netcode SUCCESS_NOS = {new char(0), "Success, Not Otherwhise Specified"};
+  const netcode FAILURE_NOS = {new char(1),  "Failure, Not Otherwhise Specified"};
   
   //Access codes for network return codes
   const char NET_CODE = 0;
   const char NET_MESSAGE = 1;
 
-
-
   //Return codes for dependency resolution
-  const depcode SUCCESS_NOS = {0, "Success, Not Otherwhise Specified"};
-  const depcode FAILURE_NOS = {1, "Failure, Not Otherwhise Specified"};
+  const depcode SUCCESS_NOS = {new char(0), "Success, Not Otherwhise Specified"};
+  const depcode FAILURE_NOS = {new char(1), "Failure, Not Otherwhise Specified"};
   
   //Access codes for dependency return codes
   const char DEP_CODE = 0;
   const char DEP_MESSAGE = 1;
 
-
-
   //Return codes for memory access
-  const memaxcode SUCCESS_NOS = {0, "Success, Not Otherwhise Specified"};
-  const memaxcode FAILURE_NOS = {1, "Failure, Not Otherwhise Specified"};
+  const memaxcode SUCCESS_NOS = {new char(0), "Success, Not Otherwhise Specified"};
+  const memaxcode FAILURE_NOS = {new char(1), "Failure, Not Otherwhise Specified"};
   
   //Access codes for memory access return code
   const char MEM_AX_CODE = 0;
   const char MEM_AX_MESSAGE = 1;
 
-
-
   //Return codes for memory access
-  const fileaxcode SUCCESS_NOS = {0, "Success, Not Otherwhise Specified"};
-  const fileaxcode FAILURE_NOS = {1, "Failure, Not Otherwhise Specified"};
+  const fileaxcode SUCCESS_NOS = {new char(0), "Success, Not Otherwhise Specified"};
+  const fileaxcode FAILURE_NOS = {new char(1), "Failure, Not Otherwhise Specified"};
   
   //Access codes for memory access return code
   const char FILE_AX_CODE = 0;
@@ -138,66 +124,9 @@ namespace utk{
    
   }
 
-
-
-  //Runtime Environment Classes:  
-
-  struct CommandLine{
-    
-  public:
-
-    CommandLine();
-    
-    //Indicates the presence of an option and its argument, if applicable.
-    class  invocationOption<typename argtype>{
-
-      invocationOption();
-
-      bool active();
-
-      argtype argument();
-      
-    };
-
-    //All avilable options
-    invocationOption<filepath> aesKey;
-    invocationOption<bool> background;
-    invocationOption<ipv4address> broadcastAddress;
-    invocationOption<bool> broadcastIterative;
-    invocationOption<countable> broadcastRepeat;
-    invocationOption<countable> broadcastPause;
-    invocationOption<countable> broadcastReturnWindow;
-    invocationOption<countable> cache;
-    invocationOption<filepath> configurationFile;
-    invocationOption<filepath> dataFile;
-    invocationOption<filepath> dataSha256;
-    invocationOption<countable> dataReturnWindow;
-    invocationOption<countable> dataSendWindow;
-    invocationOption<bool> discover;
-    invocationOption<filepath> fileOut;
-    invocationOption<filepath> handler;
-    invocationOption<bool> laxConformanceCheck;
-    invocationOption<bool> respond;
-    invocationOption<filepath> routineLibrary;
-    invocationOption<filepath> routineSource;
-    invocationOption<countable> scratchSize;
-    invocationOption<ipv4address> sendByIp;
-    invocationOption<hostname> sendByName;
-    invocationOption<ipv4address> sendByUuid;
-    invocationOption<bool> sendAll;
-    invocationOption<filepath> librarySha256;
-    invocationOption<filepath> sourceSha256;
-    invocationOption<bool> strictConformanceCheck;
-    invocationOption<filepath> forceCompiler;
-    invocationOption<bool> forceCompilerOptions;
-
-  };
-
   
   //Runtime Environment Functions
   depcode resolve_dependency(optioncode codeIn);
-
-  
   
   
 
@@ -207,47 +136,34 @@ namespace utk{
 
 
   //tx(...), "Transmit": connects to IPv4Address on tcpPort and sends data located at dataIn as specified by dataArea. The argument IPv4Address is assumed to be exactly four bytes long, with each byte representing a single octet. 
-  ////////////////////////////////////////////////////////////////////////////////////////////////
   netcode tx(unsigned int tcpPort, unsigned char IPv4Address[], MemBoundry dataArea, MemBoundry dataIn);
 
 
   //tx(...), "Transmit": connects to IPv4Address on tcpPort and sends the contents of the file attached to the handle dataIn. The argument IPv4Address is assumed to be exactly four bytes long, with each byte representing a single octet. 
-  ///////////////////////////////////////////////////////////////////////////
   netcode tx(unsigned int tcpPort, unsigned char IPv4Address[], HANDLE dataIn);
 
 
   //tx(...), "Transmit": sends the data at memBoundry.highestBlock to IPv4Address on udpPort, repeats this action the number of times specified by retransmitCount, pausing for pauseDuration seconds between each transmission. The argument IPv4Address is assumed to be exactly four bytes long, with each byte representing a single octet. 
-  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   netcode tx(unsigned int udpPort, unsigned char IPv4Address[], unsigned int retransmitCount, unsigned int pauseDuration, MemBoundry dataIn);
  
 
   //xt(...), "Reverse Transmit": binds to IPv4Address on tcpPort and listens for a connection. When a connection is made, the data located at dataIn.highestBlock is sent to the connected host. The argument IPv4Address is assumed to be exactly four bytes long, with each byte representing a single octet. 
-  ////////////////////////////////////////////////////////////////////////////////////
-  netcode xt(unsigned int port, unsigned char IPv4Address[], MemBoundry dataIn);
-
-
-  //xt(...), "Reverse Transmit": binds to IPv4Address on tcpPort and listens for a connection. When a connection is made, the contents of the file attached to the handle dataIn is sent to the connected host. The argument IPv4Address is assumed to be exactly four bytes long, with each byte representing a single octet. 
-  ///////////////////////////////////////////////////////////////////////////
   netcode xt(unsigned int port, unsigned char IPv4Address[], HANDLE dataOut);
 
 
   //rx(...), "Receive": binds to IPv4Address on tcpPort and listens for connections. Stores the address of the received data at the address pointed to by dataOut. The argument IPv4Address is assumed to be exactly four bytes long, with each byte representing a single octet. The calling context is responsible for delete()/[]ing or free[]/()ing the memory at this location, and is guaranteed to be the only context with a pointer to it. 
-  ////////////////////////////////////////////////////////////////////////////////
   netcode rx(unsigned int port, unsigned char IPv4Address[], MemBoundry dataOut);
 
 
   //rx(...), "Receive": binds to IPv4Address on tcpPort and listens for connections. Stores at the address pointed to by dataOut a handle for a file containing the data received. The argument IPv4Address is assumed to be exactly four bytes long, with each byte representing a single octet. This function is required to call the CreateFile(...) function with the attributes FILE_ATTRIBUTE_TEMPORARY and FILE_ATTRIBUTE_HIDDEN, as well as the flag FILE_FLAG_DELETE_ON_CLOSE set. The calling context is responsible for releasing the file handle correctly, and is guaranteed to be the only context with a handle to the file.
-  ///////////////////////////////////////////////////////////////////////////
   netcode rx(unsigned int port, unsigned char IPv4Address[], HANDLE dataOut);
   
 
   //xr(...), "Reverse Receive": connects to IPv4Address on tcpPort and writes any data recieved to dataOut.highest_block. The argument IPv4Address is assumed to be exactly four bytes long, with each byte representing a single octet. 
-  ///////////////////////////////////////////////////////////////////////////////////////////////////////
   netcode xr(unsigned int tcpPort, unsigned char IPv4Address[], MemBoundry dataArea, MemBoundry dataOut);
 
 
   //xr(...), "Reverse Receive": connects to IPv4Address on tcpPort and writes any data recieved to the file attached to the handle dataIn. The argument IPv4Address is assumed to be exactly four bytes long, with each byte representing a single octet. 
-  ///////////////////////////////////////////////////////////////////////////
   netcode xr(unsigned int tcpPort, unsigned char IPv4Address[], HANDLE dataIn);
 
 

@@ -1,4 +1,4 @@
-ORCA: Online Routine Control & Automation - Design Goals
+ORCA: Online Routine Control & Automation - Key Mechanisms
 
 Guido, Malik, Blencowe, Schoonmaker
 
@@ -8,3 +8,15 @@ Boundry Conditions:
 * Program invocation; Read the commandline, choose an execution path. 
 
 * When CTRL_CLOSE_EVENT signal is caught, perform a clean exit immediately.
+
+
+Concurrency:
+
+* When a blocking IO operation is started, it is to be started in its own process. 
+
+* Whenever a call is made that may block indefinitely, it's process will spawn a thread which will destroy the process after a preset ammount of time has passed.
+
+* A process started to host a blocking call may also spawn multiple new threads of its own; Each time a new thread is spawned the self destruct timer thread is destroyed and a new one made in its place. 
+
+
+* Everytime a new thread of execution is started (whether as a subthread of an existing process or thread, or as the main thread of a new process), the parent thread allocates memory to form a return channel. The return channel is 
