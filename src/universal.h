@@ -7,11 +7,16 @@
 
 namespace utk{
 
+  //constants
+
+  
+  
+
   //typedef Types:
   typedef char** depcode;  
   typedef char** netcode;
   typedef char** memaxcode;
-  typedef cahr** fileaxcode;
+  typedef char** fileaxcode;
   typedef char** optioncode;
   typedef char** fastcompcode;
   
@@ -21,12 +26,16 @@ namespace utk{
   typedef typename unsigned int countable;
   typedef typename char* compilername;
   typedef typename char* uuid;
-
+  
+  typedef typename unsigned char octet;
+  typedef typename unsigned char optionstate;
+  
+  
+  //fastcomp() related constants
   
 
-  //fastcomp() related constants
-  const fastcompcode 
 
+  
   //Byte stream header delineation and sizing
   const char DATA_LENGTH_FIELD = 0;
   const char SOURCE_LENGTH_FIELD = 4;
@@ -124,6 +133,44 @@ namespace utk{
    
   }
 
+
+  struct CommandLine{
+    
+    bool aesKey;
+    bool background;
+    bool broadcastAddress;
+    bool broadcastIterative;
+    bool broadcastRepeats;
+    bool broadastPause;
+    bool broadcastReturnWindow;
+    bool cache;
+    bool configurationFile;
+    bool dataFile;
+    bool dataSHA256;
+    bool dataReturnWindow;
+    bool dataSendWindow;
+    bool discover;
+    bool encryption;
+    bool fileOut;
+    bool handler;
+    bool laxConformanceCheck;
+    bool respond;
+    bool routineLibrary;
+    bool routineSource;
+    bool scratchSize;
+    bool sendByIP;
+    bool sendByName;
+    bool sendByUUID;
+    bool sendAll;
+    bool librarySHA256;
+    bool SourceSHA256;
+    bool StrictConformanceCheck;
+    bool forceCompiler;
+    bool forceCompilerOptions;
+    
+  }
+
+
   
   //Runtime Environment Functions
   depcode resolve_dependency(optioncode codeIn);
@@ -136,35 +183,35 @@ namespace utk{
 
 
   //tx(...), "Transmit": connects to IPv4Address on tcpPort and sends data located at dataIn as specified by dataArea. The argument IPv4Address is assumed to be exactly four bytes long, with each byte representing a single octet. 
-  netcode tx(unsigned int tcpPort, unsigned char IPv4Address[], MemBoundry dataArea, MemBoundry dataIn);
+  netcode tx(unsigned int tcpPort, unsigned octet IPv4Address[], MemBoundry dataArea, MemBoundry dataIn);
 
 
   //tx(...), "Transmit": connects to IPv4Address on tcpPort and sends the contents of the file attached to the handle dataIn. The argument IPv4Address is assumed to be exactly four bytes long, with each byte representing a single octet. 
-  netcode tx(unsigned int tcpPort, unsigned char IPv4Address[], HANDLE dataIn);
+  netcode tx(unsigned int tcpPort, unsigned octet IPv4Address[], HANDLE dataIn);
 
 
   //tx(...), "Transmit": sends the data at memBoundry.highestBlock to IPv4Address on udpPort, repeats this action the number of times specified by retransmitCount, pausing for pauseDuration seconds between each transmission. The argument IPv4Address is assumed to be exactly four bytes long, with each byte representing a single octet. 
-  netcode tx(unsigned int udpPort, unsigned char IPv4Address[], unsigned int retransmitCount, unsigned int pauseDuration, MemBoundry dataIn);
+  netcode tx(unsigned int udpPort, unsigned octet IPv4Address[], unsigned int retransmitCount, unsigned int pauseDuration, MemBoundry dataIn);
  
 
   //xt(...), "Reverse Transmit": binds to IPv4Address on tcpPort and listens for a connection. When a connection is made, the data located at dataIn.highestBlock is sent to the connected host. The argument IPv4Address is assumed to be exactly four bytes long, with each byte representing a single octet. 
-  netcode xt(unsigned int port, unsigned char IPv4Address[], HANDLE dataOut);
+  netcode xt(unsigned int port, unsigned octet IPv4Address[], HANDLE dataOut);
 
 
   //rx(...), "Receive": binds to IPv4Address on tcpPort and listens for connections. Stores the address of the received data at the address pointed to by dataOut. The argument IPv4Address is assumed to be exactly four bytes long, with each byte representing a single octet. The calling context is responsible for delete()/[]ing or free[]/()ing the memory at this location, and is guaranteed to be the only context with a pointer to it. 
-  netcode rx(unsigned int port, unsigned char IPv4Address[], MemBoundry dataOut);
+  netcode rx(unsigned int port, unsigned octet IPv4Address[], MemBoundry dataOut);
 
 
   //rx(...), "Receive": binds to IPv4Address on tcpPort and listens for connections. Stores at the address pointed to by dataOut a handle for a file containing the data received. The argument IPv4Address is assumed to be exactly four bytes long, with each byte representing a single octet. This function is required to call the CreateFile(...) function with the attributes FILE_ATTRIBUTE_TEMPORARY and FILE_ATTRIBUTE_HIDDEN, as well as the flag FILE_FLAG_DELETE_ON_CLOSE set. The calling context is responsible for releasing the file handle correctly, and is guaranteed to be the only context with a handle to the file.
-  netcode rx(unsigned int port, unsigned char IPv4Address[], HANDLE dataOut);
+  netcode rx(unsigned int port, unsigned octet IPv4Address[], HANDLE dataOut);
   
 
   //xr(...), "Reverse Receive": connects to IPv4Address on tcpPort and writes any data recieved to dataOut.highest_block. The argument IPv4Address is assumed to be exactly four bytes long, with each byte representing a single octet. 
-  netcode xr(unsigned int tcpPort, unsigned char IPv4Address[], MemBoundry dataArea, MemBoundry dataOut);
+  netcode xr(unsigned int tcpPort, unsigned octet IPv4Address[], MemBoundry dataArea, MemBoundry dataOut);
 
 
   //xr(...), "Reverse Receive": connects to IPv4Address on tcpPort and writes any data recieved to the file attached to the handle dataIn. The argument IPv4Address is assumed to be exactly four bytes long, with each byte representing a single octet. 
-  netcode xr(unsigned int tcpPort, unsigned char IPv4Address[], HANDLE dataIn);
+  netcode xr(unsigned int tcpPort, unsigned octet IPv4Address[], HANDLE dataIn);
 
 
 }
