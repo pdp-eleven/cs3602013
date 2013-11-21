@@ -1,0 +1,9 @@
+c:\users\meows\documents\visual studio 2012\Projects\TestingVB\TestingVB\bin\Debug\TestingVB.exe
+c:\users\meows\documents\visual studio 2012\Projects\TestingVB\TestingVB\bin\Debug\TestingVB.pdb
+c:\users\meows\documents\visual studio 2012\Projects\TestingVB\TestingVB\bin\Debug\TestingVB.xml
+c:\users\meows\documents\visual studio 2012\Projects\TestingVB\TestingVB\obj\Debug\TestingVB.Form1.resources
+c:\users\meows\documents\visual studio 2012\Projects\TestingVB\TestingVB\obj\Debug\TestingVB.Resources.resources
+c:\users\meows\documents\visual studio 2012\Projects\TestingVB\TestingVB\obj\Debug\TestingVB.vbproj.GenerateResource.Cache
+c:\users\meows\documents\visual studio 2012\Projects\TestingVB\TestingVB\obj\Debug\TestingVB.exe
+c:\users\meows\documents\visual studio 2012\Projects\TestingVB\TestingVB\obj\Debug\TestingVB.xml
+c:\users\meows\documents\visual studio 2012\Projects\TestingVB\TestingVB\obj\Debug\TestingVB.pdb
