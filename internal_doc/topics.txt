@@ -1,0 +1,93 @@
+1. "Problem Statement"
+
+
+1.a "Functional Requirements"
+
+(An inventory of program features.)
+
+
+1.b "Non-Functional Requirements"
+
+(An inventory of non-feature program characteristics, stylistic choices, etc.)
+
+
+1.c "Contraints"
+
+(To be duplicated verbatim from assignment text.)
+
+
+
+2. "Project Management Plan"
+
+
+2.a "Project Deliverables"
+
+(An inventory of what information is to be made available at the time of delivery)
+
+
+
+3. "Requirements"
+
+
+3.a "User Interaction"
+
+(An inventory of what changes can be made to the program logic at run time and which facilities are used to effect such changes)
+
+
+3.b "Preliminary Scenarios"
+
+(Various examples of changes in program behavior due to changes made to the run time logic.)
+
+
+3.c "Use Cases"
+
+(A set of classifications dividing the run time logic into broad behavior types. Does not cover error conditions. Includes charts and diagrams.)
+
+
+
+4. "Analysis"
+
+
+4.a "General Considerations"
+
+(An inventory of compile time classes known to be needed for technical reasons.)
+
+
+4.b "Abbot Analysis"
+
+(A list of abstract terms that correlate to specific compile time classes. This list is non-exhastive.)
+
+
+4.c "Class Diagram"
+
+(A UML-style diagram charting the relationships between the classes that appear in 4.b, and prtially inventorying their members. Does not exhaustively document either property.)
+
+
+4.d "Dynamic Model"
+
+(A set of lifetime diagrams illustrating which classes of functions are called at which points during the case lifetime.)
+
+
+4.e "View of Participating Classes"
+
+(This view consists of a UML-style diagram charting the relationships between the classes that appear in 4.b, and fully inventorying their members. Does not exhaustively document either property.)
+
+
+4.f "Analysis Level Package Diagram"
+
+(This diagram is a UML-style illustration of the compile time divisions seperating groups of classes)
+
+
+
+5. "System Design"
+
+
+5.a "Design Goals"
+
+(An inventory of planned compile time and run time features, and notes on the viability of implementing each feature.)
+
+
+5.b "Trade Offs"
+
+(An inventory of features that were omitted to facilitate the inclusion of other features.)
+
