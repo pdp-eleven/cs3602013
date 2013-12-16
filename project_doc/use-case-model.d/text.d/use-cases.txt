@@ -456,9 +456,9 @@ Optional Arguments: 0
 Mandatory Arguments: 1
 
 
--I, --send-by-ip IPV4ADDRESS
+-I, --send-by-ip
 
-Description: Send a routine package to the host specified by IPV4ADDRESS.
+Description: Send a routine package to each newline delimited IP address read from STDIN.
 
 Failure Modes: If IPV4ADDRESS is not listed in the configuration file or the file does not exist, print failure mode messages to STDOUT and call exit(1).
 
@@ -472,12 +472,12 @@ Precludes: --send-by-name, --send-by-uuid, --send-all, --respond, --discover
 
 Optional Arguments: 0
 
-Mandatory Arguments: 1
+Mandatory Arguments: 0
 
 
--N, --send-by-name HOSTNAME
+-N, --send-by-name
 
-Description: Send a routine package to the host specified by HOSTNAME.
+Description: Send a routine package to each newline delimited hostname read from STDIN.
 
 Failure Modes: If HOSTNAME is not a listed in the configuration file or the file does not exist, print failure mode messages to STDOUT and call exit(1).
 
@@ -491,12 +491,12 @@ Precludes: --send-by-ip, --send-by-uuid, --send-all, --respond, --discover
 
 Optional Arguments: 0
 
-Mandatory Arguments: 1
+Mandatory Arguments: 0
 
 
 -U, --send-by-uuid UUID
 
-Description: Send a routine package to the host specified by HOSTNAME.
+Description: Send a routine package to each newline delimited UUID read frin STDIN.
 
 Failure Modes: If UUID is not a listed in the configuration file or the file does not exist, print failure mode messages to STDOUT and call exit(1).
 
@@ -510,7 +510,7 @@ Precludes: --send-by-ip, --send-by-name, --send-all, --respond, --discover
 
 Optional Arguments: 0
 
-Mandatory Arguments: 1
+Mandatory Arguments: 0
 
 
 -A, --send-all
