@@ -98,12 +98,21 @@ namespace utk{
   const char FILE_AX_MESSAGE = 1;
 
   
+  //Runtime Environment Functions and Classes
+  const char** resolve_dependency(char** codeIn){
+  
+    return DEP_FAILURE_NOS;
+
+  }
+
 
   template class CommandLine{
 
     template <typename argtype> class InvocationOption{
-      argtype argument; 
+      argtype argumentText; 
+      argtype argumentValue; 
       bool active; 
+      bool resolved;
     };
 
     invocationOption<filepath> aesKey;
@@ -127,9 +136,9 @@ namespace utk{
     invocationOption<filepath> routineLibrary;
     invocationOption<filepath> routineSource;
     invocationOption<countable> scratchSize;
-    invocationOption<ipv4address> sendByIp;
-    invocationOption<hostname> sendByName;
-    invocationOption<ipv4address> sendByUuid;
+    invocationOption<bool> sendByIp;
+    invocationOption<bool> sendByName;
+    invocationOption<bool> sendByUuid;
     invocationOption<bool> sendAll;
     invocationOption<filepath> librarySha256;
     invocationOption<filepath> sourceSha256;
@@ -144,43 +153,689 @@ namespace utk{
       HANDLE file = INVALID_HANDLE_VALUE;
       
       while( position < argc ){
-       
+	
 	position++;
 
 
 #undef OPTION
+#undef MEMBER
+#define MEMBER aesKey
 #define OPTION AES_KEY	
 	subposition = 0;
 	while( (argv[position][subposition] != '\0') && (OPTION[position][subposition] != '\0') ){
 	  if( argv[position][subposition] != OPTION[position][subposition]){
 	    break;
 	  }
+	  subposition++;
 	}
 	if( (argv[position][subposition] == '\0') && (OPTION[position][subposition] == '\0') ){
 	  aesKey.active = TRUE;
-	  
-	  file = createFile(argv[position + 1], GENERIC_READ, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL)
-	  if(   )
-	  
-
-	  aesKey.argument; 	  
+	  if( (position + 1) < argc ){
+	    aesKey.argumentText = argv[position + 1]; 
+	  } else {
+	    aesKey.argumentText = NULL;
+	  }
+	  continue;
 	}
 
 
-#undef OPTION 
-#define OPTION  
+
+#undef OPTION
+#undef MEMBER
+#define MEMBER background
+#define OPTION BACKGROUND
+	subposition = 0;
+	while( (argv[position][subposition] != '\0') && (OPTION[position][subposition] != '\0') ){
+	  if( argv[position][subposition] != OPTION[position][subposition]){
+	    break;
+	  }
+	  subposition++;
+	}
+	if( (argv[position][subposition] == '\0') && (OPTION[position][subposition] == '\0') ){
+	  MEMBER.active = TRUE;
+	  if( (position + 1) < argc ){
+	    MEMBER.argumentText = argv[position + 1]; 
+	  } else {
+	    MEMBER.argumentText = NULL;
+	  }
+	  continue;
+	}
 
 
 
+#undef OPTION
+#undef MEMBER
+#define MEMBER broadcastAddress
+#define OPTION BROADCAST_ADDRESS
+	subposition = 0;
+	while( (argv[position][subposition] != '\0') && (OPTION[position][subposition] != '\0') ){
+	  if( argv[position][subposition] != OPTION[position][subposition]){
+	    break;
+	  }
+	  subposition++;
+	}
+	if( (argv[position][subposition] == '\0') && (OPTION[position][subposition] == '\0') ){
+	  MEMBER.active = TRUE;
+	  if( (position + 1) < argc ){
+	    MEMBER.argumentText = argv[position + 1]; 
+	  } else {
+	    MEMBER.argumentText = NULL;
+	  }
+	  continue;
+	}
+
+
+#undef OPTION
+#undef MEMBER
+#define MEMBER broadcastIterative
+#define OPTION BROADCAST_ITERATIVE
+	subposition = 0;
+	while( (argv[position][subposition] != '\0') && (OPTION[position][subposition] != '\0') ){
+	  if( argv[position][subposition] != OPTION[position][subposition]){
+	    break;
+	  }
+	  subposition++;
+	}
+	if( (argv[position][subposition] == '\0') && (OPTION[position][subposition] == '\0') ){
+	  MEMBER.active = TRUE;
+	  if( (position + 1) < argc ){
+	    MEMBER.argumentText = argv[position + 1]; 
+	  } else {
+	    MEMBER.argumentText = NULL;
+	  }
+	  continue;
+	}
+
+
+#undef OPTION
+#undef MEMBER
+#define MEMBER broadcastRepeat
+#define OPTION BROADCAST_REPEAT
+	subposition = 0;
+	while( (argv[position][subposition] != '\0') && (OPTION[position][subposition] != '\0') ){
+	  if( argv[position][subposition] != OPTION[position][subposition]){
+	    break;
+	  }
+	  subposition++;
+	}
+	if( (argv[position][subposition] == '\0') && (OPTION[position][subposition] == '\0') ){
+	  MEMBER.active = TRUE;
+	  if( (position + 1) < argc ){
+	    MEMBER.argumentText = argv[position + 1]; 
+	  } else {
+	    MEMBER.argumentText = NULL;
+	  }
+	  continue;
+	}
+
+
+#undef OPTION
+#undef MEMBER
+#define MEMBER broadcastPause
+#define OPTION BROADCAST_PAUSE
+	subposition = 0;
+	while( (argv[position][subposition] != '\0') && (OPTION[position][subposition] != '\0') ){
+	  if( argv[position][subposition] != OPTION[position][subposition]){
+	    break;
+	  }
+	  subposition++;
+	}
+	if( (argv[position][subposition] == '\0') && (OPTION[position][subposition] == '\0') ){
+	  MEMBER.active = TRUE;
+	  if( (position + 1) < argc ){
+	    MEMBER.argumentText = argv[position + 1]; 
+	  } else {
+	    MEMBER.argumentText = NULL;
+	  }
+	  continue;
+	}
+
+
+#undef OPTION
+#undef MEMBER
+#define MEMBER broadcastReturnWindow
+#define OPTION BROADCAST_RETURN_WINDOW
+	subposition = 0;
+	while( (argv[position][subposition] != '\0') && (OPTION[position][subposition] != '\0') ){
+	  if( argv[position][subposition] != OPTION[position][subposition]){
+	    break;
+	  }
+	  subposition++;
+	}
+	if( (argv[position][subposition] == '\0') && (OPTION[position][subposition] == '\0') ){
+	  MEMBER.active = TRUE;
+	  if( (position + 1) < argc ){
+	    MEMBER.argumentText = argv[position + 1]; 
+	  } else {
+	    MEMBER.argumentText = NULL;
+	  }
+	  continue;
+	}
+      
+
+#undef OPTION
+#undef MEMBER
+#define MEMBER cache
+#define OPTION CACHE
+	subposition = 0;
+	while( (argv[position][subposition] != '\0') && (OPTION[position][subposition] != '\0') ){
+	  if( argv[position][subposition] != OPTION[position][subposition]){
+	    break;
+	  }
+	  subposition++;
+	}
+	if( (argv[position][subposition] == '\0') && (OPTION[position][subposition] == '\0') ){
+	  MEMBER.active = TRUE;
+	  if( (position + 1) < argc ){
+	    MEMBER.argumentText = argv[position + 1]; 
+	  } else {
+	    MEMBER.argumentText = NULL;
+	  }
+	  continue;
+	}
+
+
+#undef OPTION
+#undef MEMBER
+#define MEMBER configurationFile
+#define OPTION CONFIGURATION_FILE
+	subposition = 0;
+	while( (argv[position][subposition] != '\0') && (OPTION[position][subposition] != '\0') ){
+	  if( argv[position][subposition] != OPTION[position][subposition]){
+	    break;
+	  }
+	  subposition++;
+	}
+	if( (argv[position][subposition] == '\0') && (OPTION[position][subposition] == '\0') ){
+	  MEMBER.active = TRUE;
+	  if( (position + 1) < argc ){
+	    MEMBER.argumentText = argv[position + 1]; 
+	  } else {
+	    MEMBER.argumentText = NULL;
+	  }
+	  continue;
+	}
+
+
+#undef OPTION
+#undef MEMBER
+#define MEMBER dataFile
+#define OPTION DATA_FILE
+	subposition = 0;
+	while( (argv[position][subposition] != '\0') && (OPTION[position][subposition] != '\0') ){
+	  if( argv[position][subposition] != OPTION[position][subposition]){
+	    break;
+	  }
+	  subposition++;
+	}
+	if( (argv[position][subposition] == '\0') && (OPTION[position][subposition] == '\0') ){
+	  MEMBER.active = TRUE;
+	  if( (position + 1) < argc ){
+	    MEMBER.argumentText = argv[position + 1]; 
+	  } else {
+	    MEMBER.argumentText = NULL;
+	  }
+	  continue;
+	}
+
+
+#undef OPTION
+#undef MEMBER
+#define MEMBER dataSha256
+#define OPTION DATA_SHA256
+	subposition = 0;
+	while( (argv[position][subposition] != '\0') && (OPTION[position][subposition] != '\0') ){
+	  if( argv[position][subposition] != OPTION[position][subposition]){
+	    break;
+	  }
+	  subposition++;
+	}
+	if( (argv[position][subposition] == '\0') && (OPTION[position][subposition] == '\0') ){
+	  MEMBER.active = TRUE;
+	  if( (position + 1) < argc ){
+	    MEMBER.argumentText = argv[position + 1]; 
+	  } else {
+	    MEMBER.argumentText = NULL;
+	  }
+	  continue;
+	}
+
+
+#undef OPTION
+#undef MEMBER
+#define MEMBER dataReturnWindow
+#define OPTION DATA_RETURN_WINDOW
+	subposition = 0;
+	while( (argv[position][subposition] != '\0') && (OPTION[position][subposition] != '\0') ){
+	  if( argv[position][subposition] != OPTION[position][subposition]){
+	    break;
+	  }
+	  subposition++;
+	}
+	if( (argv[position][subposition] == '\0') && (OPTION[position][subposition] == '\0') ){
+	  MEMBER.active = TRUE;
+	  if( (position + 1) < argc ){
+	    MEMBER.argumentText = argv[position + 1]; 
+	  } else {
+	    MEMBER.argumentText = NULL;
+	  }
+	  continue;
+	}
+
+      
+#undef OPTION
+#undef MEMBER
+#define MEMBER dataSendWindow
+#define OPTION DATA_SEND_WINDOW
+	subposition = 0;
+	while( (argv[position][subposition] != '\0') && (OPTION[position][subposition] != '\0') ){
+	  if( argv[position][subposition] != OPTION[position][subposition]){
+	    break;
+	  }
+	  subposition++;
+	}
+	if( (argv[position][subposition] == '\0') && (OPTION[position][subposition] == '\0') ){
+	  MEMBER.active = TRUE;
+	  if( (position + 1) < argc ){
+	    MEMBER.argumentText = argv[position + 1]; 
+	  } else {
+	    MEMBER.argumentText = NULL;
+	  }
+	  continue;
+	}
+
+      
+#undef OPTION
+#undef MEMBER
+#define MEMBER discover
+#define OPTION DISCOVER
+	subposition = 0;
+	while( (argv[position][subposition] != '\0') && (OPTION[position][subposition] != '\0') ){
+	  if( argv[position][subposition] != OPTION[position][subposition]){
+	    break;
+	  }
+	  subposition++;
+	}
+	if( (argv[position][subposition] == '\0') && (OPTION[position][subposition] == '\0') ){
+	  MEMBER.active = TRUE;
+	  if( (position + 1) < argc ){
+	    MEMBER.argumentText = argv[position + 1]; 
+	  } else {
+	    MEMBER.argumentText = NULL;
+	  }
+	  continue;
+	}
+
+
+#undef OPTION
+#undef MEMBER
+#define MEMBER fileOut
+#define OPTION FILE_OUT
+	subposition = 0;
+	while( (argv[position][subposition] != '\0') && (OPTION[position][subposition] != '\0') ){
+	  if( argv[position][subposition] != OPTION[position][subposition]){
+	    break;
+	  }
+	  subposition++;
+	}
+	if( (argv[position][subposition] == '\0') && (OPTION[position][subposition] == '\0') ){
+	  MEMBER.active = TRUE;
+	  if( (position + 1) < argc ){
+	    MEMBER.argumentText = argv[position + 1]; 
+	  } else {
+	    MEMBER.argumentText = NULL;
+	  }
+	  continue;
+	}
+
+
+#undef OPTION
+#undef MEMBER
+#define MEMBER handler
+#define OPTION HANDLER
+	subposition = 0;
+	while( (argv[position][subposition] != '\0') && (OPTION[position][subposition] != '\0') ){
+	  if( argv[position][subposition] != OPTION[position][subposition]){
+	    break;
+	  }
+	  subposition++;
+	}
+	if( (argv[position][subposition] == '\0') && (OPTION[position][subposition] == '\0') ){
+	  MEMBER.active = TRUE;
+	  if( (position + 1) < argc ){
+	    MEMBER.argumentText = argv[position + 1]; 
+	  } else {
+	    MEMBER.argumentText = NULL;
+	  }
+	  continue;
+	}
+
+
+#undef OPTION
+#undef MEMBER
+#define MEMBER laxConformanceCheck
+#define OPTION LAX_CONFORMANCE_CHECK
+	subposition = 0;
+	while( (argv[position][subposition] != '\0') && (OPTION[position][subposition] != '\0') ){
+	  if( argv[position][subposition] != OPTION[position][subposition]){
+	    break;
+	  }
+	  subposition++;
+	}
+	if( (argv[position][subposition] == '\0') && (OPTION[position][subposition] == '\0') ){
+	  MEMBER.active = TRUE;
+	  if( (position + 1) < argc ){
+	    MEMBER.argumentText = argv[position + 1]; 
+	  } else {
+	    MEMBER.argumentText = NULL;
+	  }
+	  continue;
+	}
+
+
+#undef OPTION
+#undef MEMBER
+#define MEMBER respond
+#define OPTION RESPOND
+	subposition = 0;
+	while( (argv[position][subposition] != '\0') && (OPTION[position][subposition] != '\0') ){
+	  if( argv[position][subposition] != OPTION[position][subposition]){
+	    break;
+	  }
+	  subposition++;
+	}
+	if( (argv[position][subposition] == '\0') && (OPTION[position][subposition] == '\0') ){
+	  MEMBER.active = TRUE;
+	  if( (position + 1) < argc ){
+	    MEMBER.argumentText = argv[position + 1]; 
+	  } else {
+	    MEMBER.argumentText = NULL;
+	  }
+	  continue;
+	}
+
+
+#undef OPTION
+#undef MEMBER
+#define MEMBER routineLibrary
+#define OPTION ROUTINE_LIBRARY
+	subposition = 0;
+	while( (argv[position][subposition] != '\0') && (OPTION[position][subposition] != '\0') ){
+	  if( argv[position][subposition] != OPTION[position][subposition]){
+	    break;
+	  }
+	  subposition++;
+	}
+	if( (argv[position][subposition] == '\0') && (OPTION[position][subposition] == '\0') ){
+	  MEMBER.active = TRUE;
+	  if( (position + 1) < argc ){
+	    MEMBER.argumentText = argv[position + 1]; 
+	  } else {
+	    MEMBER.argumentText = NULL;
+	  }
+	  continue;
+	}
+
+
+#undef OPTION
+#undef MEMBER
+#define MEMBER routineSource
+#define OPTION ROUTINE_SOURCE
+	subposition = 0;
+	while( (argv[position][subposition] != '\0') && (OPTION[position][subposition] != '\0') ){
+	  if( argv[position][subposition] != OPTION[position][subposition]){
+	    break;
+	  }
+	  subposition++;
+	}
+	if( (argv[position][subposition] == '\0') && (OPTION[position][subposition] == '\0') ){
+	  MEMBER.active = TRUE;
+	  if( (position + 1) < argc ){
+	    MEMBER.argumentText = argv[position + 1]; 
+	  } else {
+	    MEMBER.argumentText = NULL;
+	  }
+	  continue;
+	}
+
+
+#undef OPTION
+#undef MEMBER
+#define MEMBER scratchSize
+#define OPTION SCRATCH_SIZE
+	subposition = 0;
+	while( (argv[position][subposition] != '\0') && (OPTION[position][subposition] != '\0') ){
+	  if( argv[position][subposition] != OPTION[position][subposition]){
+	    break;
+	  }
+	  subposition++;
+	}
+	if( (argv[position][subposition] == '\0') && (OPTION[position][subposition] == '\0') ){
+	  MEMBER.active = TRUE;
+	  if( (position + 1) < argc ){
+	    MEMBER.argumentText = argv[position + 1]; 
+	  } else {
+	    MEMBER.argumentText = NULL;
+	  }
+	  continue;
+	}
+
+
+#undef OPTION
+#undef MEMBER
+#define MEMBER sendByIp
+#define OPTION SEND_BY_IP
+	subposition = 0;
+	while( (argv[position][subposition] != '\0') && (OPTION[position][subposition] != '\0') ){
+	  if( argv[position][subposition] != OPTION[position][subposition]){
+	    break;
+	  }
+	  subposition++;
+	}
+	if( (argv[position][subposition] == '\0') && (OPTION[position][subposition] == '\0') ){
+	  MEMBER.active = TRUE;
+	  if( (position + 1) < argc ){
+	    MEMBER.argumentText = argv[position + 1]; 
+	  } else {
+	    MEMBER.argumentText = NULL;
+	  }
+	  continue;
+	}
+
+
+#undef OPTION
+#undef MEMBER
+#define MEMBER sendByName
+#define OPTION SEND_BY_NAME
+	subposition = 0;
+	while( (argv[position][subposition] != '\0') && (OPTION[position][subposition] != '\0') ){
+	  if( argv[position][subposition] != OPTION[position][subposition]){
+	    break;
+	  }
+	  subposition++;
+	}
+	if( (argv[position][subposition] == '\0') && (OPTION[position][subposition] == '\0') ){
+	  MEMBER.active = TRUE;
+	  if( (position + 1) < argc ){
+	    MEMBER.argumentText = argv[position + 1]; 
+	  } else {
+	    MEMBER.argumentText = NULL;
+	  }
+	  continue;
+	}
+
+
+#undef OPTION
+#undef MEMBER
+#define MEMBER sendByUuid
+#define OPTION SEND_BY_UUID
+	subposition = 0;
+	while( (argv[position][subposition] != '\0') && (OPTION[position][subposition] != '\0') ){
+	  if( argv[position][subposition] != OPTION[position][subposition]){
+	    break;
+	  }
+	  subposition++;
+	}
+	if( (argv[position][subposition] == '\0') && (OPTION[position][subposition] == '\0') ){
+	  MEMBER.active = TRUE;
+	  if( (position + 1) < argc ){
+	    MEMBER.argumentText = argv[position + 1]; 
+	  } else {
+	    MEMBER.argumentText = NULL;
+	  }
+	  continue;
+	}
+	
+
+#undef OPTION
+#undef MEMBER
+#define MEMBER sendAll
+#define OPTION SEND_ALL
+	subposition = 0;
+	while( (argv[position][subposition] != '\0') && (OPTION[position][subposition] != '\0') ){
+	  if( argv[position][subposition] != OPTION[position][subposition]){
+	    break;
+	  }
+	  subposition++;
+	}
+	if( (argv[position][subposition] == '\0') && (OPTION[position][subposition] == '\0') ){
+	  MEMBER.active = TRUE;
+	  if( (position + 1) < argc ){
+	    MEMBER.argumentText = argv[position + 1]; 
+	  } else {
+	    MEMBER.argumentText = NULL;
+	  }
+	  continue;
+	}
+
+
+#undef OPTION
+#undef MEMBER
+#define MEMBER librarySha256
+#define OPTION LIBRARY_SHA256
+	subposition = 0;
+	while( (argv[position][subposition] != '\0') && (OPTION[position][subposition] != '\0') ){
+	  if( argv[position][subposition] != OPTION[position][subposition]){
+	    break;
+	  }
+	  subposition++;
+	}
+	if( (argv[position][subposition] == '\0') && (OPTION[position][subposition] == '\0') ){
+	  MEMBER.active = TRUE;
+	  if( (position + 1) < argc ){
+	    MEMBER.argumentText = argv[position + 1]; 
+	  } else {
+	    MEMBER.argumentText = NULL;
+	  }
+	  continue;
+	}
+
+
+#undef OPTION
+#undef MEMBER
+#define MEMBER sourceSha256
+#define OPTION SOURCE_SHA_256
+	subposition = 0;
+	while( (argv[position][subposition] != '\0') && (OPTION[position][subposition] != '\0') ){
+	  if( argv[position][subposition] != OPTION[position][subposition]){
+	    break;
+	  }
+	  subposition++;
+	}
+	if( (argv[position][subposition] == '\0') && (OPTION[position][subposition] == '\0') ){
+	  MEMBER.active = TRUE;
+	  if( (position + 1) < argc ){
+	    MEMBER.argumentText = argv[position + 1]; 
+	  } else {
+	    MEMBER.argumentText = NULL;
+	  }
+	  continue;
+	}
+
+
+#undef OPTION
+#undef MEMBER
+#define MEMBER forceCompiler
+#define OPTION FORCE_COMPILER
+	subposition = 0;
+	while( (argv[position][subposition] != '\0') && (OPTION[position][subposition] != '\0') ){
+	  if( argv[position][subposition] != OPTION[position][subposition]){
+	    break;
+	  }
+	  subposition++;
+	}
+	if( (argv[position][subposition] == '\0') && (OPTION[position][subposition] == '\0') ){
+	  MEMBER.active = TRUE;
+	  if( (position + 1) < argc ){
+	    MEMBER.argumentText = argv[position + 1]; 
+	  } else {
+	    MEMBER.argumentText = NULL;
+	  }
+	  continue;
+	}
+    
+
+#undef OPTION
+#undef MEMBER
+#define MEMBER strictConformanceCheck
+#define OPTION STRICT_CONFORMACNE_CHECK
+	subposition = 0;
+	while( (argv[position][subposition] != '\0') && (OPTION[position][subposition] != '\0') ){
+	  if( argv[position][subposition] != OPTION[position][subposition]){
+	    break;
+	  }
+	  subposition++;
+	}
+	if( (argv[position][subposition] == '\0') && (OPTION[position][subposition] == '\0') ){
+	  MEMBER.active = TRUE;
+	  if( (position + 1) < argc ){
+	    MEMBER.argumentText = argv[position + 1]; 
+	  } else {
+	    MEMBER.argumentText = NULL;
+	  }
+	  continue;
+	}
+
+
+#undef OPTION
+#undef MEMBER
+#define MEMBER forceCompilerOptions
+#define OPTION FORCE_COMPILER_OPTIONS
+	subposition = 0;
+	while( (argv[position][subposition] != '\0') && (OPTION[position][subposition] != '\0') ){
+	  if( argv[position][subposition] != OPTION[position][subposition]){
+	    break;
+	  }
+	  subposition++;
+	}
+	if( (argv[position][subposition] == '\0') && (OPTION[position][subposition] == '\0') ){
+	  MEMBER.active = TRUE;
+	  if( (position + 1) < argc ){
+	    MEMBER.argumentText = argv[position + 1]; 
+	  } else {
+	    MEMBER.argumentText = NULL;
+	  }
+	  continue;
+	}
+	
+      } //end population loop
+
+    } //end constructor
+
+
+
+    bool resolve_option( char** optionCode ){
+
+      if(optionCode == AES_KEY){
+	createFile( aesKey.  );
       }
       
 
     }
 
 
-   
+  }; //end CommandLine
 
-  };
 
 
 
@@ -198,19 +853,16 @@ namespace utk{
     dataType* lowBlock;
   };
 
-  
-  //Runtime Environment Functions
-  const char** resolve_dependency(char** codeIn){
-    return DEP_FAILURE_NOS;
-  }
 
-  
+
+ 
   //Network Functions
-  const char** mkbytestream( MemBoundry datInDataIn, MemBoundry DataInSourceIn, MemBoundry, MemBoundry dataInBinaryIn, MemBoundry dataOut ){
+  const char** mk_byte_stream( MemBoundry datInDataIn, MemBoundry DataInSourceIn, MemBoundry, MemBoundry dataInBinaryIn, MemBoundry dataOut ){
     return MEMAX_FAILURE_NOS;
   }
 
 
+ 
   //tx(...), "Transmit": connects to IPv4Address on tcpPort and sends data located at dataIn as specified by dataArea. The argument IPv4Address is assumed to be exactly four bytes long, with each byte representing a single octet. 
   const char** tx(unsigned int tcpPort, octet IPv4Address[], MemBoundry dataIn){
   
