@@ -1,22 +1,88 @@
 ORCA: Online Routine Control & Automation - Key Mechanisms
 
+
 Guido, Malik, Blencowe, Schoonmaker
 
 
-Boundry Conditions: 
+Boundaries:
 
-* Program invocation; Read the commandline, choose an execution path. 
+The boundary class for this program will be the interface the user will interact with to operate the program. The need for this mechanism arises from the need for a user to be able to easily and intuitivelyinteract with the program without needing to know too many of the specifics or implementation details. The program will then communicate directly through the command line and send data over a TCP/IP connection.
 
-* When CTRL_CLOSE_EVENT signal is caught, perform a clean exit immediately.
+Full version:
 
+In the full version of the program a database or file of user credentials will be kept to authenticate the users of the program and make sure the program has permission to execute. In the case of a database, a new boundary between the program and the database housing the information will be established to enable interaction among the distinct sections of the program.
+
+Demo version:
+
+For the version implemented and demonstrated within class, the use of any type of user authentication has been omitted. It is assumed anybody using the demo version of the program has proper permission and access to it. As such, the second boundary does not exist within this demonstration.
+
+
+Error Handling
+
+The program does not place many hard coded restrictions over what can be transmitted by the program. As such, not much error handling takes place within the program. One form or error handling implemented within this program is in the actual transmission of the files. A process with the transfer request is created and will run until transmission is successful or the process terminates due to timing out. Because the program does not care what type of file is transferred, no error checking or handling is done other than verifying that the selected object is valid for transfer.
+
+Full version:
+
+As an extension for more reliability and user-friendliness, the full fledged program could contain selections for specific file types so that an actual check on the file's extension or type could be done. This would make it so that the user can be sure that the right type of file is being sent and enable the possibility to correct an unseen mistake in the case of selecting the wrong file. A simple extension check would have the capability to return an invalid request alert and prevent the file from being sent, which would inform the user that an error had been made.
+
+Demo version:
+
+This version will have the features initially listed under the error handling section. The program will take files, see that they are legal attachments, and send  the requested files over to the receiving machines. With the time constraints that are in place we decided that this would be functionality to leave out as it does not take away from the fact that the program is a distributed application.
+
+
+Communication
+
+ORCA will function over an existing TCP/IP communication protocol. The user's machine will scan for and detect all other available devices on the network that are open for communication. Once the recipient machines have been set, the user can begin transmitting files. (Note: The discovery step only sets the program up to send, not receive. As the setup of the system is unidirectional, file transfers to the user's computer are set up and executed solely by the sending machine.) ORCA will open a socket on the network and then transfer the file in sequence to all of the recipient machines.
+
+Full version:
+
+Rather than send to all available computers sequentially, the full implementation of the program would have the options to select which of the available addresses to send the file to as well as transmit the file to all of the receiving machines concurrently rather than sequentially (This will be covered under concurrency.)
+
+Demo version:
+
+Within the demonstration version, the user will be able to select a file, create a socket, send a file and the socket will be closed once it has finished. The actual method of communication will not vary between the full version and the demonstration version, it would be implemented exactly as it has been for the demonstration.
+
+
+Libraries
+
+Most of the functionality carried out within the program comes from the windows libraries and functions. The use of this specific option does limit ORCA to be platform dependent (Windows only), however it supplies us easy access to some key functionality while also offering a wide user base. This was kept in mind when deciding on the platform, as Linux would have been easier to create sockets and communication methods within, but the client base would not have been a very large group. These key aspects of the program are necessary for a distributed application and are all present within the program.
+
+Some of the key features used from these libraries are essential to the following roles:
 
 Concurrency:
 
-* When a blocking IO operation is started, it is to be started in its own process. 
+ORCA implements concurrency through forking, a duplicate copy of the running process is created through a call to CreateProcess(). Calls to GetCurrentProcess() and GetProcessID() provide the PID of the parent process which then is Base64 encoded with a call to CryptToBinaryToString() and passed as the first argument to the new process at creation time. A call to CryptStringToBinary() is used in the child process to decode this argument, which is resolved to a handle using a call to OpenProcess(), which can then be used as an argument to WriteProcessMemory() to transmit data back to the parent process, which has been waiting using a call to WaitForSingleObject().
 
-* Whenever a call is made that may block indefinitely, it's process will spawn a thread which will destroy the process after a preset ammount of time has passed.
+Network communication:
 
-* A process started to host a blocking call may also spawn multiple new threads of its own; Each time a new thread is spawned the self destruct timer thread is destroyed and a new one made in its place. 
+Functions from the WINSOCK libraries are used for network communication, whenever a Winsock function is invoked that may block while waiting for network activity, the program forks and a complete Winsock startup/shutdown procedure takes place in the child, in addition to the required functions. Prior to Winsock startup, a satellite thread is launched by the child process that contains a timer that will call exit() after a predetermined period of time has elapsed. Additional satellite threads may be launched to handle multiple connections to the same socket, but it should be kept in mind that they are all tied to the same timer.
+
+Execution of Routines:
+
+When a routine reaches a responding host it is stored in a temporary file using CreateFile() and the program forks. A call to the LoadLibrary is made in the child, which has launched satellite threads to monitor and control the routine as it executes.
 
 
-* Everytime a new thread of execution is started (whether as a subthread of an existing process or thread, or as the main thread of a new process), the parent thread allocates memory to form a return channel. The return channel is 
+Security
+
+The whole ORCA system relies on TCP/IP and other network communications, which are unsafe in general. Also, as mentioned earlier in the key mechanisms section, a log in password could be paired with a user name to ensure no unauthorized access is given to the program. No sort of security will be available in the demo implementation, as it was not necessary to showcase a working distributed application.
+
+Full version:
+
+The full version of the program would include AES encryption and decryption in order to safely transmit messages across the network. This way if any data were intercepted or transmitted to the wrong recipient, it would not be usable without the proper key to decode the information. In addition, as mentioned earlier, there would be log in credentials for the full version of the program. These credentials would include a password which would be used to authenticate the uses of the program and any necessary permissions or saved preferences.
+
+Demo version:
+
+As stated, due to time constraints none of the security  measures were viewed as relevant enough to the core project to warrant extra time programming into full functionality. As a result, there is no form of authentication or encryption present in the program and it is to be used as is, assuming no need for user accounts or data encryption.
+
+
+Global Resource and Data Management
+
+The global resources being handled by this program include the files to be sent, any addresses and command line arguments used by the program, and the data about the other computers being communicated with. Data is not managed within the program, the only purpose of the system is to transfer existing data. However, the data being transferred is kept within the buffer and held within a process until the transfer completes or times out. Persistent data only exists in the form of stored machine names and addresses of other devices on the network.
+
+Full version:
+
+The full version may also implement the use of a file stored in protected access within the memory of the computer which holds the user credential information. This would be another form of persistent data management. Also, were a product registration required within the full program a registry key would be added to the system which would verify the authenticity of the program.
+
+Demo version:
+
+In the demo version all the features mentioned will be implemented. Besides the features only drafted to be added into a full working version of the program, resources and data management are key to proper functionality and so must be incorporated into the program.
