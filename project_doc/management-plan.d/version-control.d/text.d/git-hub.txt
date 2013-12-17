@@ -1,0 +1,15 @@
+ORCA: Online Routine Control & Automation - Git Hub
+
+
+Guido, Malik, Blencowe, Schoonmaker
+
+
+The platform our team used for communication was an online repository known as Github (http://www.github.com). This website was chosen as the primary method of communication and collaboration because of the flexibility offered to the group. Our schedules varied too much to allow much time for meetings, so the meetings were held for a few minutes after class every day as well as from 6 pm onwards on Wednesdays. In between these physical meetings, any work done or ideas that a member of the team came up with could be added to the online repository and these changes were then visible to the rest of the group.
+
+
+Functionality and Justification
+
+Github's primary usage comes in the form of forks and branches. Once a project is created, it can be altered or expanded upon by any of the authorized collaborators. Any of the members working on the project has the option to fork the project or a section of the project, which would give them copies of whatever information they had chosen. Branches are logical divisions within the project for the purpose of organization and in our case were used as a type of file directory, sorting different information into branches based on what meeting the work occurred on or possibly by who was responsible for creating and uploading the document.
+
+The use of the site enabled us to all have our own copies with any data included in the project and any changes or additions we had personally made. When ready, the new or changed information could be synched into the main repository for the project. Once any of the other members went to the main site or synched their copies of the information, all the changes would be visible along with any comments or other relevant information about the progression of the project.
+
