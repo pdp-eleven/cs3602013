@@ -1,627 +1,81 @@
 ORCA: Online Routine Control & Automation - Use Cases
 
+
 Guido, Malik, Blencowe, Schoonmaker
 
 
-Internal Dictionary:
+Responder Mode:
 
-Universal Toolkit (UTK) - An internal namespace (utk::) that is defined in the source file "universal.h". The UTK contains four kinds of entities: Typedef types that contextualize primitive types; Structs with only primitive or typedef members; Initialized const instances of any of the aforementioned; Static functions. The goal of the UTK is to provide the tools needed to quickly and easily design modular classes that can utilize complex system APIs transparently. The naming convention for all UTK function names is all lowercase, delimited by underscores (_). Then naming convention for all UTK const instances is all uppercase, delimited by underscores (_). The naming convention for all UTK typedef types is all lowercase, with no delimiters. The naming convention for all UTK structs is capitalization of the first letter only, with no delimiters.
+Responder is one of the three major modes of functionality. This mode is initiated when the binary is invoked with the --respond option and may be affected by other options used in the same invocation. Regardless of an other options used in conjunction with this option, entering responder mode guarentees the following behaviors: 
 
-High Conformancy Toolkit (HCTK) - A namespace (hctk::) defined in the source file "conformant.h". The HCTK contains encapsulations of various common functions that ensure a routine cannot make modifications to the host system beyond its scratch space.
+* Routines sent from program instances running in originator mode to the current instance will be executed and results from those routines will be returned.
 
+* The current instance of the program will not exit unless signaled to do so by the operating system. 
 
-Abstract:
+* Responses to discovery broadcasts from program instances running in discovery mode containing information about the current instance of the program will be sent.
 
-ORCA is compiled as a single command line binary which incorporates its roles as server, client and discovery agent. All possible use cases are covered by combinations of command line options. Once the process is started no further input is accepted from the user. There are no separate use cases for the GUI; Any correctly implemented GUI module simply covers all command line use cases. If the GUI introduces any new use cases they are considered undefined, and treated as bugs. In effect, the GUI module should be thought of as a specialization of the character terminal, and not as a generalization of the underlying function calls.
 
+Discovery Mode:
 
-Command line options have the following characteristics:
+Discovery is one of the three major modes of functionality. This mode is initiated when the binary is invoked with the --discover option and may be affected by other options used in the same invocation. Regardless of an other options used in conjunction with this option, entering responder mode guarentees the following behaviors: 
 
-short option, long option ARGUMENT: All short options perform identically to long options, with the exception that short options may be chained (EG -dek .\key). If an option takes any arguments, they are shown in uppercase (EG FILE), arguments may be optional or mandatory.
+* A message containing information about the current instance of the program will be broadcast to all hosts connected to the local network.
 
-Description: A brief description of the behavior controlled by the option and the format of any arguments.
+* For a fixed period of time the current instance of the program will accept responses to the message and record them to the current configuration file.
 
-Failure Modes: Possible failures that can be caught while parsing the command line, and how they will be handled.
 
-Default Value: If an option takes an argument, what value is used if the option is not present on the command line but its argument is used by another option's behavior. 
+Originator Mode:
 
-Optional: If no other options list this option as Required, it is Always Optional. If any options do list this option as required, it is Sometimes Optional. If any options listed as Requirements do list this option as Required, it is Never Optional. 
+Originator is one of the three major modes of functionality. This mode is initiated when the binary is invoked with the --send-by-ip, --send-by-uuid, --send-by-name, or --send-all options and may be affected by other options used in the same invocation. Each option corresponds to a single minor mode of functionality, which guarentees one of the following sets of behaviors:
 
-Requires: Any options without which this option would be meaningless, required options need not precede requiring options on the command line. Additional options Required by Required options are not duplicated here.
+% --send-by-ip:
 
-Precludes: Any options with which this option is not compatible, options are incompatible with this option regardless of the order of the command line options. Additional instances of this option may be precluded. Options that would be precluded by a Required option are not duplicated here.
+* A newline delimited list of IP address in alphanumeric form will be read from the standard input until the end-of-file character is read.
 
-Optional Arguments: The number of optional arguments.
+* A fixed number of attempts will be made to send the current routine to each IP address listed on the standard input. In order to correctly negotiate this connection, the information associated with each IP is read from the current configuration.
 
-Mandatory Arguments: The number of mandatory arguments.
+* For each routine successfully sent a return channel will be created, which will wait for a fixed period of time for a connection from the program instance to which the routine was sent. 
 
+* For each connection successfully made on a return channel the current handler will be executed. 
 
-Use Cases Organized by Command Line Option:
+% --send-by-name:
 
--k, --aes-key FILE
+* A newline delimited list of hostnames in alphanumeric form will be read from the standard input until the end-of-file character is read.
 
-Description: Use the contents of FILE as the key for decryption/encryption of all data sent over the network.
+* A fixed number of attempts will be made to send the current routine to each hostname listed on the standard input. In order to correctly negotiate this connection, the information associated with each hostname is read from the current configuration.
 
-Failure Modes: If FILE does not exist or is unreadable, print failure mode messages to STDOUT and call exit(1).
+* For each routine successfully sent a return channel will be created, which will wait for a fixed period of time for a connection from the program instance to which the routine was sent. 
 
-Default Value: "utk::AESKEY"
+* For each connection successfully made on a return channel the current handler will be executed. 
 
-Optional: Always
+% --send-by-uuid:
 
-Requires: --encryption
+* A newline delimited list of internal UUIDs in alphanumeric form will be read from the standard input until the end-of-file character is read.
 
-Precludes: --aes-key
+* A fixed number of attempts will be made to send the current routine to each UUID listed on the standard input. In order to correctly negotiate this connection, the information associated with each UUID is read from the current configuration.
 
-Optional Arguments: 0
+* For each routine successfully sent a return channel will be created, which will wait for a fixed period of time for a connection from the program instance to which the routine was sent. 
 
-Mandatory Arguments: 1
+* For each connection successfully made on a return channel the current handler will be executed. 
 
+% --send-by-all:
 
--B, --background
+* A fixed number of attempts will be made to send the current routine to each host listed in the current configuratio file.
 
-Description: Causes the process to fork into the background and block signaling from the terminal.
+* For each routine successfully sent a return channel will be created, which will wait for a fixed period of time for a connection from the program instance to which the routine was sent. 
 
-Failure Modes: None
+* For each connection successfully made on a return channel the current handler will be executed. 
 
-Default Value: None
 
-Optional: Always
+  
 
-Requires: --respond
 
-Precludes: None
 
-Optional Arguments: 0
 
-Mandatory Arguments: 0
 
 
--b, --broadcast-address IPV4ADDRESS
 
-Description: Sets the broadcast address used for sending and receiving broadcasts to IPV4ADDRESS instead of the value derived from the network driver.
 
-Failure Modes: If IPV4ADDRESS is not a valid address on the current network, print failure mode messages to STDOUT and call exit(1).
 
-Default Value: utk::system_broadcast()
 
-Optional: Always
 
-Requires: --discover OR --respond
-
-Precludes: --broadcast-address
-
-Optional Arguments: 0
-
-Mandatory Arguments: 0
-
-
--i, --broadcast-iterative
-
-Description: Forces use of iterative broadcasting and broadcast listening.
-
-Failure Modes: None
-
-default Value: None
-
-Optional: Always
-
-Requires: --discover OR --respond
-
-Precludes: None
-
-Optional Arguments: 0
-
-Mandatory Arguments: 0
-
-
--r, --broadcast-repeats COUNT
-
-Description: Number of times to repeat the broadcast message.
-
-Failure Modes: COUNT is not a valid number for repetition, print failure mode messages to STDOUT and call exit(1).
-
-Default Value: 3
-
-Optional: Always
-
-Requires: --discover
-
-Precludes: --broadcast-repeats
-
-Optional Arguments: 0
-
-Mandatory Arguments: 1
-
-
--p, --broadcast-pause SECONDS
-
-Description: Pause for duration SECONDS before each broadcast message is sent.
-
-Failure Modes: SECONDS is not a valid number of seconds to pause, print failure mode messages to STDOUT and call exit(1).
-
-Default Value: 5
-
-Optional: Always
-
-Requires: --discover
-
-Precludes: --broadcast-pause
-
-Optional Arguments: 0
-
-Mandatory Arguments: 1
-
-
--R, --broadcast-return-window SECONDS
-
-Description: Listen for responses to a broadcast for duration SECONDS.
-
-Failure Modes: SECONDS is not a valid number of seconds to wait, print failure mode messages to STDOUT and call exit(1).
-
-Default Value: 25
-
-Optional: Always
-
-Requires: --discover
-
-Precludes: --broadcast-return-window
-
-Optional Arguments: 0
-
-Mandatory Arguments: 1
-
-
--C, --cache COUNT
-
-Description: How many routine packages a should be kept after they have finished running before overwriting starts. 
-
-Failure Modes: If COUNT is not a valid number, print the failure mode messages to STDOUT and call exit(1).
-
-Default Value: None
-
-Optional: Always
-
-Requires: --respond
-
-Precludes: --cache
-
-Optional Arguments: 0
-
-Mandatory Arguments: 1
-
-
--c, --configuration-file FILE
-
-Description: Use FILE as the configuration file.
-
-Failure Modes: If FILE exists and is unreadable, unwritable or cannot be parsed, print the failure mode messages to STDOUT and call exit(1).
-
-Default Value: "utk::CONFIGFILE"
-
-Optional: Always
-
-Requires: --send-by-ip OR --send-by-name OR --send-by-uuid OR --send-all OR --discover
-
-Precludes: --configuration-file
-
-Optional Arguments: 0
-
-Mandatory Arguments: 1
-
-
--d, --data-file FILE
-
-Description: Use the contents of FILE as the data to be sent with a routine.
-
-Failure Modes: If FILE does not exist or is unreadable, print the failure mode messages to STDOUT and call exit(1).
-
-Default Value: None
-
-Optional: Always
-
-Requires: --send-by-ip OR --send-by-name OR --send-by-uuid OR --send-all
-
-Precludes: --data-file
-
-Optional Arguments: 0
-
-Mandatory Arguments: 1
-
-
--T, --data-sha256
-
-Description: Send only the SHA256 sum of data associated with a routine instead of the data itself.
-
-Failure Modes:  None
-
-Default Value: None
-
-Optional: Always
-
-Requires: --data-file
-
-Precludes: None
-
-Optional Arguments: 0
-
-Mandatory Arguments: 0
-
-
--w, --data-return-window SECONDS
-
-Description: Sets all handlers to wait for a data return from a routine for duration SECONDS.
-
-Failure Modes: SECONDS is not a valid number of seconds to wait, print failure mode messages to STDOUT and call exit(1).
-
-Default Value: "utk::RETURNWINDOW"
-
-Optional: Always
-
-Requires: --send-by-ip OR --send-by-name OR --send-by-uuid OR --send-all
-
-Precludes: --data-return-window
-
-Optional Arguments: 0
-
-Mandatory Arguments: 1
-
-
--W, --data-send-window SECONDS
-
-Description: Wait for a routine+data package to finish being sent for duration SECONDS.
-
-Failure Modes: SECONDS is not a valid number of seconds to wait, print failure mode messages to STDOUT and call exit(1).
-
-Default Value: "utk::SENDWINDOW"
-
-Optional: Always
-
-Requires: --send-by-ip OR --send-by-name OR --send-by-uuid OR --send-all
-
-Precludes: --data-send-window
-
-Optional Arguments: 0
-
-Mandatory Arguments: 1
-
-
--D, --discover
-
-Description: Send out broadcasts and write the resulting replies to the configuration file.
-
-Failure Modes: None
-
-Default Value: None
-
-Optional: Sometimes
-
-Requires: None
-
-Precludes: --send-by-ip, --send-by-name, --send-by-uuid, --send-all, --respond
-
-Optional Arguments: 0
-
-Mandatory Arguments: 0
-
-
--e, --encryption
-
-Description: Encrypt all data sent/received over the network.
-
-Failure Modes: None
-
-Default Value: None
-
-Optional: Always
-
-Requires: --discover OR --send-by-ip OR --send-by-uuid OR --send-all OR --send-by-name OR --respond
-
-Precludes: None
-
-Optional Arguments: 0
-
-Mandatory Arguments: 0
-
-
--f, --file-out FILE
-
-Description: Writes data returned by all handlers to FILE.
-
-Failure Modes: If FILE does not exist or is unwritable, print failure mode messages to STDOUT and call exit(1).
-
-Default Value: "utk::OUTFILE"
-
-Optional: Always
-
-Requires: --send-by-ip OR --send-by-name OR --send-by-uuid OR --send-all
-
-Precludes: --file-out
-
-Optional Arguments: 0
-
-Mandatory Arguments: 1
-
-
--H, --handler FILE
-
-Description: Use the contents of FILE as the handler for the data returned by all routines. 
-
-Failure Modes: If FILE does not exist or is unreadable, print failure mode messages to STDOUT and call exit(1).
-
-Default Value: None
-
-Optional: Always
-
-Requires: --send-by-ip OR --send-by-name OR --send-by-uuid OR --send-all
-
-Precludes: None
-
-Optional Arguments: 0
-
-Mandatory Arguments: 1
-
-
--l, --lax-conformance-check
-
-Description: Perform a check of the routine source code, but do not compile it; execute the included binary instead.
-
-Failure Modes: None
-
-Default Value: None
-
-Optional: Always
-
-Requires: --respond
-
-Precludes: --strict-conformance-check
-
-Optional Arguments: 0
-
-Mandatory Arguments: 0
-
-
--r, --respond
-
-Description: Run forever answering broadcasts and executing routines.
-
-Failure Modes: None
-
-Default Value: None
-
-Optional: Sometimes
-
-Requires: None
-
-Precludes: --send-by-ip, --send-by-name, --send-by-uuid, --send-all, --respond, --discover
-
-Optional Arguments: 0
-
-Mandatory Arguments: 0
-
-
--L, --routine-library FILE
-
-Description: Use the contents of FILE as the binary routine to be sent. 
-
-Failure Modes: If FILE does not exist, is unreadable or cannot be loaded as a library, print failure mode messages to STDOUT and call exit(1).
-
-Default Value: None
-
-Optional: Never
-
-Requires: --send-by-ip OR --send-by-name OR --send-by-uuid OR --send-all
-
-Precludes: --routine-library
-
-Optional Arguments: 0
-
-Mandatory Arguments: 1
-
-
--S, --routine-source FILE
-
-Description: Use the contents of FILE as the source routine to be sent.
-
-Failure Modes: If FILE does not exist, is unreadable or does not contain INITR(), print failure mode messages to STDOUT and call exit(1).
-
-Default Value: None
-
-Optional: Always
-
-Requires: --send-by-ip OR --send-by-name OR --send-by-uuid OR --send-all
-
-Precludes: --routine-source
-
-Optional Arguments: 0
-
-Mandatory Arguments: 1
-
-
--s, --scratch-size BYTES
-
-Description: Sets the maximum size of the scratch space that routines will be allowed to store temporary data in through the to BYTES.
-
-Failure Modes: If BYTES is not a valid number of bytes or is greater than utk::SCRATCHSPACEMAX, print failure mode messages to STDOUT and call exit(1).
-
-Default: "utk::SCRATCHSPACEMAX"
-
-Optional: Always
-
-Requires: --respond
-
-Precludes: --scratch-size
-
-Optional Arguments: 0
-
-Mandatory Arguments: 1
-
-
--I, --send-by-ip
-
-Description: Send a routine package to each newline delimited IP address read from STDIN.
-
-Failure Modes: If IPV4ADDRESS is not listed in the configuration file or the file does not exist, print failure mode messages to STDOUT and call exit(1).
-
-Default Value: None
-
-Optional: Sometimes
-
-Requires: --routine-library
-
-Precludes: --send-by-name, --send-by-uuid, --send-all, --respond, --discover
-
-Optional Arguments: 0
-
-Mandatory Arguments: 0
-
-
--N, --send-by-name
-
-Description: Send a routine package to each newline delimited hostname read from STDIN.
-
-Failure Modes: If HOSTNAME is not a listed in the configuration file or the file does not exist, print failure mode messages to STDOUT and call exit(1).
-
-Default Value: None
-
-Optional: Sometimes
-
-Requires: --routine-library
-
-Precludes: --send-by-ip, --send-by-uuid, --send-all, --respond, --discover
-
-Optional Arguments: 0
-
-Mandatory Arguments: 0
-
-
--U, --send-by-uuid UUID
-
-Description: Send a routine package to each newline delimited UUID read frin STDIN.
-
-Failure Modes: If UUID is not a listed in the configuration file or the file does not exist, print failure mode messages to STDOUT and call exit(1).
-
-Default Value: None
-
-Optional: Sometimes
-
-Requires: --routine-library
-
-Precludes: --send-by-ip, --send-by-name, --send-all, --respond, --discover
-
-Optional Arguments: 0
-
-Mandatory Arguments: 0
-
-
--A, --send-all
-
-Description: Send a routine package to all hosts listed in the configuration file.
-
-Failure Modes: None
-
-Default Value: None
-
-Optional: Sometimes
-
-Requires: --routine-library OR --routine-source
-
-Precludes: --send-by-ip, --send-by-name, --respond, --discover, --send-by-uuid
-
-Optional Arguments: 0
-
-Mandatory Arguments: 1
-
-
--h, --library-sha256
-
-Description: Send only the SHA256 sum of a source routine instead of the routine itself.
-
-Failure Modes:  None
-
-Default Value: None
-
-Optional: Always
-
-Requires: --rountine-library
-
-Precludes: None
-
-Optional Arguments: 0
-
-Mandatory Arguments: 0
-
-
--X, --source-sha256
-
-Description: Send only the SHA256 sum of a source routine instead of the routine itself.
-
-Failure Modes:  None
-
-Default Value: None
-
-Optional: Always
-
-Requires: --routine-source
-
-Precludes: None
-
-Optional Arguments: 0
-
-Mandatory Arguments: 0
-
-
--O, --strict-conformance-check
-
-Description: Perform a check of the routine source code, compile it, and execute the resulting binary.
-
-Failure Modes: None
-
-Default Value: None
-
-Optional: Always
-
-Requires: --respond
-
-Precludes: --lax-conformance-check
-
-Optional Arguments: 0
-
-Mandatory Arguments: 0
-
-
--F, --force-compiler COMPILERNAME
-
-Description: Force use of a particular remote compiler when compiling from routine source.
-
-Failure Modes: If COMPILERNAME is not a listed in the configuration file or the file does not exist, print failure mode messages to STDOUT and call exit(1).
-
-Default: None
-
-Optional: Always
-
-Requires: --send-by-ip OR --send-by-name OR --send-all OR --send-by-uuid
-
-Precludes: None
-
-Optional Arguments: 0
-
-Mandatory Arguments: 1
-
-
--o, --force-compiler-options OPTIONSTRING
-
-Description: Force use of an arbitrary string of options for a particular compiler.
-
-Failure Modes: None
-
-Default: None
-
-Optional: Always
-
-Requires: --force-compiler
-
-Precludes: --force-compiler-options
-
-Optional Arguments: 0
-
-Mandatory Arguments: 1
