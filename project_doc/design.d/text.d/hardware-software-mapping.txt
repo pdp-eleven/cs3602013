@@ -1,0 +1,10 @@
+ORCA: Online Routine Control & Automation - Hardware/Software Mapping
+
+
+Guido, Malik, Blencowe, Schoonmaker
+
+
+ORCA is not subject to strict hardware software mapping. Compilation results in only a single multi-call binary that incorporates enough functionality to perform any of the programs defined roles. Any hardware on which this binary has been deployed can function in any of the three major modes; responder, originator and discovery. Any given IP address can support any number of initiator mode program instances (provided the range of available ports is not exhausted) and discovery mode program instances, but can support only one responder mode instance at any given time. 
+
+The limit to exactly one responder instance per IP address is the result of using a single UDP/TCP port number for receiving broadcast messages; this port number acts as the single constant factor in negotiating communication between two instance of the program. Every other port number used by a program instance is randomized in an effort accommodate process which are already bound to ports outside the well known range.  
+
