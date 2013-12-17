@@ -1,0 +1,619 @@
+ORCA: Online Routine Control & Automation - User Manual
+
+Guido, Malik, Blencowe, Schoonmaker
+
+Abstract:
+
+ORCA is compiled as a single binary which incorporates its roles as server, client and discovery agents. To select which major mode of functionality will be entered at run time, as well as any changes to program behavior within a major mode, options are specified on the command line after the binary name. All options begin with a dash character (-) and have a short and long form, short froms begin with one dash while long forms begin with two. All short options perform identically to long options.
+
+
+The following list of options is formatted as follows:
+
+short option, long option ARGUMENT:  If an option takes any arguments, they are shown in uppercase (EG FILE), arguments may be optional or mandatory.
+
+Description: A brief description of the behavior controlled by the option and the format of any arguments.
+
+Failure Modes: Possible failures that can be caught while parsing the command line, and how they will be handled.
+
+Default Value: If an option takes an argument, what value is used if the option is not present on the command line but its argument is used by another option's behavior. 
+
+Optional: If no other options list this option as Required, it is Always Optional. If any options do list this option as required, it is Sometimes Optional. If any options listed as Requirements do list this option as Required, it is Never Optional. 
+
+Requires: Any options without which this option would be meaningless, required options need not precede requiring options on the command line. Additional options Required by Required options are not duplicated here.
+
+Precludes: Any options with which this option is not compatible, options are incompatible with this option regardless of the order of the command line options. Additional instances of this option may be precluded. Options that would be precluded by a Required option are not duplicated here.
+
+Optional Arguments: The number of optional arguments.
+
+Mandatory Arguments: The number of mandatory arguments.
+
+
+Command Line Options:
+
+-k, --aes-key FILE
+
+Description: Use the contents of FILE as the key for decryption/encryption of all data sent over the network.
+
+Failure Modes: If FILE does not exist or is unreadable, print failure mode messages to STDOUT and call exit(1).
+
+Default Value: "%UserProfile%\orca.key"
+
+Optional: Always
+
+Requires: --encryption
+
+Precludes: --aes-key
+
+Optional Arguments: 0
+
+Mandatory Arguments: 1
+
+
+-B, --background
+
+Description: Causes the process to fork into the background and block signaling from the terminal.
+
+Failure Modes: None
+
+Default Value: None
+
+Optional: Always
+
+Requires: --respond
+
+Precludes: None
+
+Optional Arguments: 0
+
+Mandatory Arguments: 0
+
+
+-b, --broadcast-address IPV4ADDRESS
+
+Description: Sets the broadcast address used for sending and receiving broadcasts to IPV4ADDRESS instead of the value derived from the network driver.
+
+Failure Modes: If IPV4ADDRESS is not a valid address on the current network, print failure mode messages to STDOUT and call exit(1).
+
+Default Value: None
+
+Optional: Always
+
+Requires: --discover OR --respond
+
+Precludes: --broadcast-address
+
+Optional Arguments: 0
+
+Mandatory Arguments: 0
+
+
+-i, --broadcast-iterative
+
+Description: Forces use of iterative broadcasting and broadcast listening.
+
+Failure Modes: None
+
+default Value: None
+
+Optional: Always
+
+Requires: --discover OR --respond
+
+Precludes: None
+
+Optional Arguments: 0
+
+Mandatory Arguments: 0
+
+
+-r, --broadcast-repeats COUNT
+
+Description: Number of times to repeat the broadcast message.
+
+Failure Modes: COUNT is not a valid number for repetition, print failure mode messages to STDOUT and call exit(1).
+
+Default Value: 3
+
+Optional: Always
+
+Requires: --discover
+
+Precludes: --broadcast-repeats
+
+Optional Arguments: 0
+
+Mandatory Arguments: 1
+
+
+-p, --broadcast-pause SECONDS
+
+Description: Pause for duration SECONDS before each broadcast message is sent.
+
+Failure Modes: SECONDS is not a valid number of seconds to pause, print failure mode messages to STDOUT and call exit(1).
+
+Default Value: 5
+
+Optional: Always
+
+Requires: --discover
+
+Precludes: --broadcast-pause
+
+Optional Arguments: 0
+
+Mandatory Arguments: 1
+
+
+-R, --broadcast-return-window SECONDS
+
+Description: Listen for responses to a broadcast for duration SECONDS.
+
+Failure Modes: SECONDS is not a valid number of seconds to wait, print failure mode messages to STDOUT and call exit(1).
+
+Default Value: 25
+
+Optional: Always
+
+Requires: --discover
+
+Precludes: --broadcast-return-window
+
+Optional Arguments: 0
+
+Mandatory Arguments: 1
+
+
+-C, --cache COUNT
+
+Description: How many routine packages a should be kept after they have finished running before overwriting starts. 
+
+Failure Modes: If COUNT is not a valid number, print the failure mode messages to STDOUT and call exit(1).
+
+Default Value: None
+
+Optional: Always
+
+Requires: --respond
+
+Precludes: --cache
+
+Optional Arguments: 0
+
+Mandatory Arguments: 1
+
+
+-c, --configuration-file FILE
+
+Description: Use FILE as the configuration file.
+
+Failure Modes: If FILE exists and is unreadable, unwritable or cannot be parsed, print the failure mode messages to STDOUT and call exit(1).
+
+Default Value: "%UserProfile%\orca.rc"
+
+Optional: Always
+
+Requires: --send-by-ip OR --send-by-name OR --send-by-uuid OR --send-all OR --discover
+
+Precludes: --configuration-file
+
+Optional Arguments: 0
+
+Mandatory Arguments: 1
+
+
+-d, --data-file FILE
+
+Description: Use the contents of FILE as the data to be sent with a routine.
+
+Failure Modes: If FILE does not exist or is unreadable, print the failure mode messages to STDOUT and call exit(1).
+
+Default Value: None
+
+Optional: Always
+
+Requires: --send-by-ip OR --send-by-name OR --send-by-uuid OR --send-all
+
+Precludes: --data-file
+
+Optional Arguments: 0
+
+Mandatory Arguments: 1
+
+
+-T, --data-sha256
+
+Description: Send only the SHA256 sum of data associated with a routine instead of the data itself.
+
+Failure Modes:  None
+
+Default Value: None
+
+Optional: Always
+
+Requires: --data-file
+
+Precludes: None
+
+Optional Arguments: 0
+
+Mandatory Arguments: 0
+
+
+-w, --data-return-window SECONDS
+
+Description: Sets all handlers to wait for a data return from a routine for duration SECONDS.
+
+Failure Modes: SECONDS is not a valid number of seconds to wait, print failure mode messages to STDOUT and call exit(1).
+
+Default Value: 30
+
+Optional: Always
+
+Requires: --send-by-ip OR --send-by-name OR --send-by-uuid OR --send-all
+
+Precludes: --data-return-window
+
+Optional Arguments: 0
+
+Mandatory Arguments: 1
+
+
+-W, --data-send-window SECONDS
+
+Description: Wait for a routine+data package to finish being sent for duration SECONDS.
+
+Failure Modes: SECONDS is not a valid number of seconds to wait, print failure mode messages to STDOUT and call exit(1).
+
+Default Value: 5000
+
+Optional: Always
+
+Requires: --send-by-ip OR --send-by-name OR --send-by-uuid OR --send-all
+
+Precludes: --data-send-window
+
+Optional Arguments: 0
+
+Mandatory Arguments: 1
+
+
+-D, --discover
+
+Description: Send out broadcasts and write the resulting replies to the configuration file.
+
+Failure Modes: None
+
+Default Value: None
+
+Optional: Sometimes
+
+Requires: None
+
+Precludes: --send-by-ip, --send-by-name, --send-by-uuid, --send-all, --respond
+
+Optional Arguments: 0
+
+Mandatory Arguments: 0
+
+
+-e, --encryption
+
+Description: Encrypt all data sent/received over the network.
+
+Failure Modes: None
+
+Default Value: None
+
+Optional: Always
+
+Requires: --discover OR --send-by-ip OR --send-by-uuid OR --send-all OR --send-by-name OR --respond
+
+Precludes: None
+
+Optional Arguments: 0
+
+Mandatory Arguments: 0
+
+
+-f, --file-out FILE
+
+Description: Writes data returned by all handlers to FILE.
+
+Failure Modes: If FILE does not exist or is unwritable, print failure mode messages to STDOUT and call exit(1).
+
+Default Value: "%UserProfile%\orca.out"
+
+Optional: Always
+
+Requires: --send-by-ip OR --send-by-name OR --send-by-uuid OR --send-all
+
+Precludes: --file-out
+
+Optional Arguments: 0
+
+Mandatory Arguments: 1
+
+
+-H, --handler FILE
+
+Description: Use the contents of FILE as the handler for the data returned by all routines. 
+
+Failure Modes: If FILE does not exist or is unreadable, print failure mode messages to STDOUT and call exit(1).
+
+Default Value: None
+
+Optional: Always
+
+Requires: --send-by-ip OR --send-by-name OR --send-by-uuid OR --send-all
+
+Precludes: None
+
+Optional Arguments: 0
+
+Mandatory Arguments: 1
+
+
+-l, --lax-conformance-check
+
+Description: Perform a check of the routine source code, but do not compile it; execute the included binary instead.
+
+Failure Modes: None
+
+Default Value: None
+
+Optional: Always
+
+Requires: --respond
+
+Precludes: --strict-conformance-check
+
+Optional Arguments: 0
+
+Mandatory Arguments: 0
+
+
+-r, --respond
+
+Description: Run forever answering broadcasts and executing routines.
+
+Failure Modes: None
+
+Default Value: None
+
+Optional: Sometimes
+
+Requires: None
+
+Precludes: --send-by-ip, --send-by-name, --send-by-uuid, --send-all, --respond, --discover
+
+Optional Arguments: 0
+
+Mandatory Arguments: 0
+
+
+-L, --routine-library FILE
+
+Description: Use the contents of FILE as the binary routine to be sent. 
+
+Failure Modes: If FILE does not exist, is unreadable or cannot be loaded as a library, print failure mode messages to STDOUT and call exit(1).
+
+Default Value: None
+
+Optional: Never
+
+Requires: --send-by-ip OR --send-by-name OR --send-by-uuid OR --send-all
+
+Precludes: --routine-library
+
+Optional Arguments: 0
+
+Mandatory Arguments: 1
+
+
+-S, --routine-source FILE
+
+Description: Use the contents of FILE as the source routine to be sent.
+
+Failure Modes: If FILE does not exist, is unreadable or does not contain INITR(), print failure mode messages to STDOUT and call exit(1).
+
+Default Value: None
+
+Optional: Always
+
+Requires: --send-by-ip OR --send-by-name OR --send-by-uuid OR --send-all
+
+Precludes: --routine-source
+
+Optional Arguments: 0
+
+Mandatory Arguments: 1
+
+
+-s, --scratch-size BYTES
+
+Description: Sets the maximum size of the scratch space that routines will be allowed to store temporary data in through the to BYTES.
+
+Failure Modes: If BYTES is not a valid number of bytes or is greater than utk::SCRATCHSPACEMAX, print failure mode messages to STDOUT and call exit(1).
+
+Default: 50000
+
+Optional: Always
+
+Requires: --respond
+
+Precludes: --scratch-size
+
+Optional Arguments: 0
+
+Mandatory Arguments: 1
+
+
+-I, --send-by-ip
+
+Description: Send a routine package to each newline delimited IP address read from STDIN.
+
+Failure Modes: If IPV4ADDRESS is not listed in the configuration file or the file does not exist, print failure mode messages to STDOUT and call exit(1).
+
+Default Value: None
+
+Optional: Sometimes
+
+Requires: --routine-library
+
+Precludes: --send-by-name, --send-by-uuid, --send-all, --respond, --discover
+
+Optional Arguments: 0
+
+Mandatory Arguments: 0
+
+
+-N, --send-by-name
+
+Description: Send a routine package to each newline delimited hostname read from STDIN.
+
+Failure Modes: If HOSTNAME is not a listed in the configuration file or the file does not exist, print failure mode messages to STDOUT and call exit(1).
+
+Default Value: None
+
+Optional: Sometimes
+
+Requires: --routine-library
+
+Precludes: --send-by-ip, --send-by-uuid, --send-all, --respond, --discover
+
+Optional Arguments: 0
+
+Mandatory Arguments: 0
+
+
+-U, --send-by-uuid UUID
+
+Description: Send a routine package to each newline delimited UUID read frin STDIN.
+
+Failure Modes: If UUID is not a listed in the configuration file or the file does not exist, print failure mode messages to STDOUT and call exit(1).
+
+Default Value: None
+
+Optional: Sometimes
+
+Requires: --routine-library
+
+Precludes: --send-by-ip, --send-by-name, --send-all, --respond, --discover
+
+Optional Arguments: 0
+
+Mandatory Arguments: 0
+
+
+-A, --send-all
+
+Description: Send a routine package to all hosts listed in the configuration file.
+
+Failure Modes: None
+
+Default Value: None
+
+Optional: Sometimes
+
+Requires: --routine-library OR --routine-source
+
+Precludes: --send-by-ip, --send-by-name, --respond, --discover, --send-by-uuid
+
+Optional Arguments: 0
+
+Mandatory Arguments: 1
+
+
+-h, --library-sha256
+
+Description: Send only the SHA256 sum of a source routine instead of the routine itself.
+
+Failure Modes:  None
+
+Default Value: None
+
+Optional: Always
+
+Requires: --rountine-library
+
+Precludes: None
+
+Optional Arguments: 0
+
+Mandatory Arguments: 0
+
+
+-X, --source-sha256
+
+Description: Send only the SHA256 sum of a source routine instead of the routine itself.
+
+Failure Modes:  None
+
+Default Value: None
+
+Optional: Always
+
+Requires: --routine-source
+
+Precludes: None
+
+Optional Arguments: 0
+
+Mandatory Arguments: 0
+
+
+-O, --strict-conformance-check
+
+Description: Perform a check of the routine source code, compile it, and execute the resulting binary.
+
+Failure Modes: None
+
+Default Value: None
+
+Optional: Always
+
+Requires: --respond
+
+Precludes: --lax-conformance-check
+
+Optional Arguments: 0
+
+Mandatory Arguments: 0
+
+
+-F, --force-compiler COMPILERNAME
+
+Description: Force use of a particular remote compiler when compiling from routine source.
+
+Failure Modes: If COMPILERNAME is not a listed in the configuration file or the file does not exist, print failure mode messages to STDOUT and call exit(1).
+
+Default: None
+
+Optional: Always
+
+Requires: --send-by-ip OR --send-by-name OR --send-all OR --send-by-uuid
+
+Precludes: None
+
+Optional Arguments: 0
+
+Mandatory Arguments: 1
+
+
+-o, --force-compiler-options OPTIONSTRING
+
+Description: Force use of an arbitrary string of options for a particular compiler.
+
+Failure Modes: None
+
+Default: None
+
+Optional: Always
+
+Requires: --force-compiler
+
+Precludes: --force-compiler-options
+
+Optional Arguments: 0
+
+Mandatory Arguments: 1

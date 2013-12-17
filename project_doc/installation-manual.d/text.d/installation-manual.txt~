@@ -1,0 +1,9 @@
+ORCA: Online Routine Control & Automation - Management Planning - Installation Manual
+
+
+Guido, Malik, Blencowe, Schoonmaker
+
+
+Compilation of the source core code results in a single multi-call binary. This binary may be copied to, and executed from, any point in the local filesystem. 
+
+Compilation of the GUI source code results in a single binary that may be copied to, and executed from, any point in the local file system. The GUI obtains the location of the core executable from the %PATH% environment variable.

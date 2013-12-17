@@ -1,0 +1,28 @@
+ORCA: Online Routine Control & Automation - Management Planning - Deliverable Materials
+
+
+Guido, Malik, Blencowe, Schoonmaker
+
+
+Completion of the project shall constitute delivery of the following materials: management planning documentation, requirements documentation, analysis documentation, system design documentation, class design documentation, testing documentation, installation documentation, use documentation, API documentation, and development documentation.
+
+The materials shall be produced as follows:
+
+
+Management planning documentation shall define all procedures, mandates and conventions related to the project.
+
+Requirements documentation shall define any characteristics the materials are to have at time of delivery.
+
+Analysis documentation shall include an analysis of required characteristics, a static model of the GUI/CLI mappings, GUI illustrations, and a static model of the process lifecyle for all possible paths of execution.
+
+System design documentation shall include a comprehensive inventory of design goals, implementation rationals, execution paths, system requirements, toolkit specifications, network boundries, UI boundries, and error handling boundries.
+
+Class design documentation shall include a comprehensive inventory of toolkit function encapsulations.
+
+Installation documentation shall contain all necissary information required to initialize the host system and copy the software materials to it.
+
+Use documentation shall contain a comprehensive inventory of all functionallity exposed through the operation system.
+
+API documentation shall contain a comprehensive inventory of all functionallity exposed through the application programming interface and its related toolkits.
+
+Development documentation shall include any notes taken during physical confferences, as well as notes and logs collected by the version control system. 
