@@ -1,0 +1,59 @@
+#define WIN32_LEAN_AND_MEAN
+#define STRICT
+#include <windows.h>
+#include <stdio.h>
+#include <Process.h>
+#include <Wincrypt.h>
+#include <stdlib.h>
+#include "universal.h"
+#pragma comment(lib, "Crypt32.lib")
+#pragma comment(lib, "advapi32.lib")
+
+
+union DWORDOverArray{
+      DWORD dword;
+      BYTE array[sizeof(DWORD)];
+};
+
+
+union VoidPointerOverArray{
+      void* voidPointer;
+      BYTE array[sizeof(void*)];
+};
+
+
+typedef int (*EXPORTABLE)(void*, HANDLE);
+
+
+/* Exported Entry Points of the form: */
+//extern "C" int __declspec(dllexport) NAME(void*);
+
+
+
+HANDLE fork( const char* entryPointName, unsigned int entryPointNameSz, void** bridge, unsigned int bridgeSz ){
+#include "include.d/orca.d/fork_charpt_voidptpt_uint.cpp"
+}
+
+
+
+int fork( int argc, char* argv[] ){
+#include "include.d/orca.d/fork_int_charptpt.cpp"
+}
+
+
+
+int main( int argc, char* argv[] ){
+  
+  /* trap the special command line and fork */
+  if( (argc == 4) && (argv[2][0] == 17) ){
+    return( fork(argc, argv) );
+  }
+
+  
+  
+
+  return 1;
+
+}
+
+
